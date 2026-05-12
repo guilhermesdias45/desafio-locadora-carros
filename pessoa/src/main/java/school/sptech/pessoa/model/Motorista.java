@@ -8,9 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import school.sptech.pessoa.model.Pessoa;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,6 +21,4 @@ public class Motorista extends Pessoa {
     @Column(name = "numero_cnh", nullable = false, unique = true)
     private String numeroCNH;
 
-    @OneToMany(mappedBy = "motorista", fetch = FetchType.LAZY)
-    private List<Aluguel> alugueis = new ArrayList<>();
 }
