@@ -1,15 +1,14 @@
-package school.sptech.aluguel.aluguel;
+package school.sptech.aluguel.model;
 
+import com.projeto.model.Motorista;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import school.sptech.aluguel.apolice.ApoliceSeguro;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -35,8 +34,18 @@ public class Aluguel {
     @OneToOne
     @Column(name = "apolice_id")
     private ApoliceSeguro apolice;
-//    @ManyToOne
-//    private Motorista motorista;
-//    @ManyToOne
-//    private Carro carro;
+    @ManyToOne
+    private com.projeto.model.Motorista motorista;
+    @ManyToOne
+    private Carro carro;
+
+
+    public Aluguel(Date dataEntrega, Date dataDevolucao, BigDecimal valorTotal, ApoliceSeguro apolice, Motorista motorista, Carro carro) {
+        this.dataEntrega = dataEntrega;
+        this.dataDevolucao = dataDevolucao;
+        this.valorTotal = valorTotal;
+        this.apolice = apolice;
+        this.motorista = motorista;
+        this.carro = carro;
+    }
 }

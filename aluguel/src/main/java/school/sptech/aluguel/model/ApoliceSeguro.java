@@ -1,4 +1,4 @@
-package school.sptech.aluguel.apolice;
+package school.sptech.aluguel.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
