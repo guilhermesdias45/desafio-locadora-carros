@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import school.sptech.pessoa.model.enums.Sexo;
 
 import java.time.LocalDate;
 
