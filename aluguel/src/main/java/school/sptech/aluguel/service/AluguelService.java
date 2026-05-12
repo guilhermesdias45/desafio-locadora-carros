@@ -7,6 +7,8 @@ import school.sptech.aluguel.mapper.AluguelMapper;
 import school.sptech.aluguel.model.Aluguel;
 import school.sptech.aluguel.repository.AluguelRepository;
 
+import java.math.BigDecimal;
+
 @Service
 public class AluguelService {
     private final AluguelRepository repository;
@@ -18,7 +20,13 @@ public class AluguelService {
     public Aluguel salvar(AluguelRequestDTO dto){
         Aluguel aluguel = AluguelMapper.toEntity(dto);
         aluguel.setValorTotal(
-                aluguel.getApolice().getValorFranquia().add(aluguel.getCarro().getValorDiaria().multiply(aluguel.getDataEntrega().compareTo(aluguel.getDataDevolucao()))));
+                aluguel.getApolice().getValorFranquia().add(
+                        aluguel.getCarro().getValorDiaria().multiply(
+                                BigDecimal.valueOf(aluguel.getDataEntrega().compareTo(aluguel.getDataDevolucao()))
+                        )
+                )
+        );
+
         return repository.save(aluguel);
     }
 

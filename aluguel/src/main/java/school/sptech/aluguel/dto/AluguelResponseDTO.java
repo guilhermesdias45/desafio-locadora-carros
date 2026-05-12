@@ -23,7 +23,7 @@ public class AluguelResponseDTO {
     private BigDecimal valorTotal;
     private ApoliceSeguroResponse apolice;
     private MotoristaResponseDTO motorista;
-//    private Carro carro;
+    private CarroResponseDTO carro;
 
     @Getter
     @Setter

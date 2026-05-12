@@ -4,6 +4,7 @@ import com.projeto.model.Motorista;
 import school.sptech.aluguel.dto.AluguelRequestDTO;
 import school.sptech.aluguel.dto.AluguelResponseDTO;
 import school.sptech.aluguel.model.Aluguel;
+import school.sptech.carro.model.Carro;
 import school.sptech.pessoa.dto.MotoristaResponseDTO;
 
 public class AluguelMapper {
@@ -17,9 +18,11 @@ public class AluguelMapper {
                 dto.getDataDevolucao(),
                 dto.getValorTotal(),
                 dto.getApolice(),
-                new Motorista()
+                new Motorista(),
+                new Carro()
         );
         aluguel.getMotorista().setId(dto.getMotoristaId());
+        aluguel.getCarro().setId(dto.getCarroId());
 
         return aluguel;
     }

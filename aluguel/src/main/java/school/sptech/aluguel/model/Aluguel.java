@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import school.sptech.carro.model.Carro;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -35,8 +36,10 @@ public class Aluguel {
     @Column(name = "apolice_id")
     private ApoliceSeguro apolice;
     @ManyToOne
+    @JoinColumn(name = "motorista_id")
     private com.projeto.model.Motorista motorista;
     @ManyToOne
+    @JoinColumn(name = "carro_id")
     private Carro carro;
 
 
