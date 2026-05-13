@@ -28,8 +28,8 @@ public class MotoristaController {
         return ResponseEntity.ok(motoristaService.buscarPorId(id));
     }
 
-    @GetMapping("/cpf/{cpf}")
-    public ResponseEntity<MotoristaResponseDTO> buscarPorCpf(@PathVariable String cpf) {
+    @GetMapping("/buscar")
+    public ResponseEntity<MotoristaResponseDTO> buscarPorCpf(@RequestHeader("cpf") String cpf) {
         return ResponseEntity.ok(motoristaService.buscarPorCpf(cpf));
     }
 
