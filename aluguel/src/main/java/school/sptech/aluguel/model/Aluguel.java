@@ -12,8 +12,8 @@ import lombok.Setter;
 import school.sptech.carro.model.Carro;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -25,11 +25,12 @@ public class Aluguel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Calendar dataPedido;
     @PastOrPresent
-    private Date dataEntrega;
+    private LocalDateTime dataPedido;
+    @PastOrPresent
+    private LocalDate dataEntrega;
     @FutureOrPresent
-    private Date dataDevolucao;
+    private LocalDate dataDevolucao;
     @Positive
     private BigDecimal valorTotal;
     @OneToOne
@@ -43,7 +44,7 @@ public class Aluguel {
     private Carro carro;
 
 
-    public Aluguel(Date dataEntrega, Date dataDevolucao, BigDecimal valorTotal, ApoliceSeguro apolice, Motorista motorista, Carro carro) {
+    public Aluguel(LocalDate dataEntrega, LocalDate dataDevolucao, BigDecimal valorTotal, ApoliceSeguro apolice, Motorista motorista, Carro carro) {
         this.dataEntrega = dataEntrega;
         this.dataDevolucao = dataDevolucao;
         this.valorTotal = valorTotal;

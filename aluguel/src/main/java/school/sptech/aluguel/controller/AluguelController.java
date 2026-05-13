@@ -27,5 +27,4 @@ public class AluguelController {
     public ResponseEntity<AluguelResponseDTO> buscarPorId(Long id){
         return ResponseEntity.status(200).body(AluguelMapper.toDto(service.buscarPorId(id)));
     }
-
 }

@@ -3,7 +3,7 @@ package school.sptech.aluguel.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import school.sptech.aluguel.dto.AluguelRequestDTO;
-import school.sptech.aluguel.exception.NotFoundException;
+import school.sptech.aluguel.exception.EntidadeNaoEncontradaException;
 import school.sptech.aluguel.mapper.AluguelMapper;
 import school.sptech.aluguel.model.Aluguel;
 import school.sptech.aluguel.repository.AluguelRepository;
@@ -38,6 +38,6 @@ public class AluguelService {
     }
 
     public Aluguel buscarPorId(Long id){
-        return repository.findById(id).orElseThrow(() -> new NotFoundException("Aluguel não encontrado"));
+        return repository.findById(id).orElseThrow(() -> new EntidadeNaoEncontradaException("Aluguel não encontrado"));
     }
 }

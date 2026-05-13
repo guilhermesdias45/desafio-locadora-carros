@@ -1,19 +1,15 @@
 package school.sptech.aluguel.dto;
 
-import lombok.Getter;
-import lombok.Setter;
 import school.sptech.aluguel.model.ApoliceSeguro;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
-@Getter
-@Setter
-public class AluguelRequestDTO {
-    private Date dataEntrega;
-    private Date dataDevolucao;
-    private BigDecimal valorTotal;
-    private ApoliceSeguro apolice;
-    private Long motoristaId;
-    private Long carroId;
-}
+public record AluguelRequestDTO(
+        LocalDate dataEntrega,
+        LocalDate dataDevolucao,
+        BigDecimal valorTotal,
+        ApoliceSeguro apolice,
+        Long motoristaId,
+        Long carroId
+) {}

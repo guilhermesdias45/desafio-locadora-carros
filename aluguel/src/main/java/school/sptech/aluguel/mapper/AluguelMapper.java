@@ -14,15 +14,15 @@ public class AluguelMapper {
         }
 
         Aluguel aluguel = new Aluguel(
-                dto.getDataEntrega(),
-                dto.getDataDevolucao(),
-                dto.getValorTotal(),
-                dto.getApolice(),
+                dto.dataEntrega(),
+                dto.dataDevolucao(),
+                dto.valorTotal(),
+                dto.apolice(),
                 new Motorista(),
                 new Carro()
         );
-        aluguel.getMotorista().setId(dto.getMotoristaId());
-        aluguel.getCarro().setId(dto.getCarroId());
+        aluguel.getMotorista().setId(dto.motoristaId());
+        aluguel.getCarro().setId(dto.carroId());
 
         return aluguel;
     }

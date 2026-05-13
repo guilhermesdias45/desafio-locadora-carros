@@ -10,29 +10,20 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class AluguelResponseDTO {
-
-    private Long id;
-    private Calendar dataPedido;
-    private Date dataEntrega;
-    private Date dataDevolucao;
-    private BigDecimal valorTotal;
-    private ApoliceSeguroResponse apolice;
-    private MotoristaResponseDTO motorista;
-    private CarroResponseDTO carro;
-
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public class ApoliceSeguroResponse{
-        private BigDecimal valorFranquia;
-        private Boolean protecaoTerceiro;
-        private Boolean protecaoCausasNaturais;
-        private Boolean protecaoRoubo;
-    }
+public record AluguelResponseDTO (
+        Long id,
+        Calendar dataPedido,
+        Date dataEntrega,
+        Date dataDevolucao,
+        BigDecimal valorTotal,
+        ApoliceSeguroResponse apolice,
+        MotoristaResponseDTO motorista,
+        CarroResponseDTO carro
+){
+    public record ApoliceSeguroResponse(
+            BigDecimal valorFranquia,
+            Boolean protecaoTerceiro,
+            Boolean protecaoCausasNaturais,
+            Boolean protecaoRoubo
+    ){ }
 }
