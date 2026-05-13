@@ -1,4 +1,4 @@
-package com.projeto.model;
+package school.sptech.pessoa.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-import school.sptech.pessoa.model.Pessoa;
 
 @Getter
 @Setter

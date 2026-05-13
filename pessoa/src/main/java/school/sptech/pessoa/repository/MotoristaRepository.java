@@ -1,8 +1,8 @@
 package school.sptech.pessoa.repository;
 
-import com.projeto.model.Motorista;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import school.sptech.pessoa.model.Motorista;
 
 import java.util.Optional;
 

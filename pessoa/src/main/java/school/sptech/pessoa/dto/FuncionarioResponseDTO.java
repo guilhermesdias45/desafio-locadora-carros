@@ -12,15 +12,4 @@ public record FuncionarioResponseDTO(
         String cpf,
         Sexo sexo,
         String matricula
-) {
-    public static FuncionarioResponseDTO fromEntity(Funcionario funcionario) {
-        return new FuncionarioResponseDTO(
-                funcionario.getId(),
-                funcionario.getNome(),
-                funcionario.getDataNascimento(),
-                funcionario.getCpf(),
-                funcionario.getSexo(),
-                funcionario.getMatricula()
-        );
-    }
-}
+) {}
