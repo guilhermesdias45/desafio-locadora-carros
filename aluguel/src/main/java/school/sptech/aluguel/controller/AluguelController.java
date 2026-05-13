@@ -1,19 +1,18 @@
 package school.sptech.aluguel.controller;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import school.sptech.aluguel.dto.AluguelRequestDTO;
 import school.sptech.aluguel.dto.AluguelResponseDTO;
 import school.sptech.aluguel.mapper.AluguelMapper;
 import school.sptech.aluguel.service.AluguelService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/alugueis")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AluguelController {
 
     private AluguelService service;
@@ -23,8 +22,13 @@ public class AluguelController {
         return ResponseEntity.status(201).body(AluguelMapper.toDto(service.salvar(dto)));
     }
 
-    @GetMapping
-    public ResponseEntity<AluguelResponseDTO> buscarPorId(Long id){
+    @GetMapping("/{id}")
+    public ResponseEntity<AluguelResponseDTO> buscarPorId(@PathVariable Long id){
         return ResponseEntity.status(200).body(AluguelMapper.toDto(service.buscarPorId(id)));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<AluguelResponseDTO>> listarTodos(){
+        return ResponseEntity.status(200).body(AluguelMapper.toDto(service.listarTodos()));
     }
 }

@@ -2,9 +2,6 @@ package school.sptech.aluguel.model;
 
 import com.projeto.model.Motorista;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,13 +22,9 @@ public class Aluguel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @PastOrPresent
     private LocalDateTime dataPedido;
-    @PastOrPresent
     private LocalDate dataEntrega;
-    @FutureOrPresent
     private LocalDate dataDevolucao;
-    @Positive
     private BigDecimal valorTotal;
     @OneToOne
     @Column(name = "apolice_id")

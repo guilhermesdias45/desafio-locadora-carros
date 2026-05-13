@@ -1,9 +1,5 @@
 package school.sptech.aluguel.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import school.sptech.pessoa.dto.MotoristaResponseDTO;
 
 import java.math.BigDecimal;
@@ -25,5 +21,5 @@ public record AluguelResponseDTO (
             Boolean protecaoTerceiro,
             Boolean protecaoCausasNaturais,
             Boolean protecaoRoubo
-    ){ }
+    ){}
 }

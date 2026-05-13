@@ -3,12 +3,14 @@ package school.sptech.aluguel.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import school.sptech.aluguel.dto.AluguelRequestDTO;
+import school.sptech.aluguel.dto.AluguelResponseDTO;
 import school.sptech.aluguel.exception.EntidadeNaoEncontradaException;
 import school.sptech.aluguel.mapper.AluguelMapper;
 import school.sptech.aluguel.model.Aluguel;
 import school.sptech.aluguel.repository.AluguelRepository;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class AluguelService {
@@ -22,6 +24,10 @@ public class AluguelService {
         this.repository = repository;
         this.motoristaWebClient = webClientBuilder.baseUrl("http://localhost:8080").build();
         this.carroWebClient = webClientBuilder.baseUrl("http://localhost:8082").build();
+    }
+
+    public List<Aluguel> listarTodos(){
+        return repository.findAll();
     }
 
     public Aluguel salvar(AluguelRequestDTO dto){

@@ -7,6 +7,8 @@ import school.sptech.aluguel.model.Aluguel;
 import school.sptech.carro.model.Carro;
 import school.sptech.pessoa.dto.MotoristaResponseDTO;
 
+import java.util.List;
+
 public class AluguelMapper {
     public static Aluguel toEntity(AluguelRequestDTO dto){
         if (dto == null){
@@ -17,7 +19,7 @@ public class AluguelMapper {
                 dto.dataEntrega(),
                 dto.dataDevolucao(),
                 dto.valorTotal(),
-                dto.apolice(),
+                ApoliceMapper.toEntity(dto.apolice()),
                 new Motorista(),
                 new Carro()
         );
@@ -25,6 +27,10 @@ public class AluguelMapper {
         aluguel.getCarro().setId(dto.carroId());
 
         return aluguel;
+    }
+
+    public static List<Aluguel> toEntity(List<AluguelRequestDTO> dto){
+        return dto.stream().map(AluguelMapper::toEntity).toList();
     }
 
     public static AluguelResponseDTO toDto(Aluguel aluguel){
@@ -38,7 +44,12 @@ public class AluguelMapper {
                 aluguel.getDataEntrega(),
                 aluguel.getDataDevolucao(),
                 aluguel.getValorTotal(),
-                aluguel.getApolice(),
+                new AluguelResponseDTO.ApoliceSeguroResponse(
+                        aluguel.getApolice().getValorFranquia(),
+                        aluguel.getApolice().getProtecaoTerceiro(),
+                        aluguel.getApolice().getProtecaoCausasNaturais(),
+                        aluguel.getApolice().getProtecaoRoubo()
+                ),
                 new MotoristaResponseDTO(
                         aluguel.getMotorista().getId(),
                         aluguel.getMotorista().getNome(),
@@ -47,7 +58,19 @@ public class AluguelMapper {
                         aluguel.getMotorista().getSexo(),
                         aluguel.getMotorista().getNumeroCNH()
                 ),
-                new CarroResponseDTO()
+                new CarroResponseDTO(
+                        aluguel.getCarro().getId(),
+                        aluguel.getCarro().getPlaca(),
+                        aluguel.getCarro().getChassi(),
+                        aluguel.getCarro().getCor(),
+                        aluguel.getCarro().getValorDiaria(),
+                        aluguel.getCarro().getModeloCarro(),
+                        aluguel.getCarro().getAcessorios()
+                )
         );
+    }
+
+    public static List<AluguelResponseDTO> toDto(List<Aluguel> alugueis){
+        return alugueis.stream().map(AluguelMapper::toDto).toList();
     }
 }
