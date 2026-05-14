@@ -1,6 +1,5 @@
 package school.sptech.carro.service;
 
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 import school.sptech.carro.exception.EntidadeConflitoException;
 import school.sptech.carro.exception.EntidadeInvalidaException;
@@ -17,7 +16,6 @@ public class FabricanteService {
         this.fabricanteRepository = fabricanteRepository;
     }
 
-    @Transactional
     public Fabricante save(Fabricante fabricante) {
         if (fabricante == null) { throw new EntidadeInvalidaException("Fabricante não pode ser nulo"); }
         if (fabricanteRepository.existsByNome(fabricante.getNome())) { throw new EntidadeConflitoException("Fabricante já cadastrado"); }
@@ -25,7 +23,6 @@ public class FabricanteService {
         return fabricanteRepository.save(fabricante);
     }
 
-    @Transactional(readOnly = true)
     public List<Fabricante> findAll() {
         return fabricanteRepository.findAll();
     }

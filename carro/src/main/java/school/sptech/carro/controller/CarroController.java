@@ -54,4 +54,11 @@ public class CarroController {
         List<CarroResponse> response = CarroMapper.toResponse(carros);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CarroResponse> buscarPorId(@PathVariable Long id) {
+        Carro carro = carroService.buscarPorId(id);
+        CarroResponse response = CarroMapper.toResponse(carro);
+        return ResponseEntity.ok(response);
+    }
 }

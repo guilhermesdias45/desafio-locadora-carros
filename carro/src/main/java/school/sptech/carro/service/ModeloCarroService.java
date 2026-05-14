@@ -1,7 +1,6 @@
 package school.sptech.carro.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import school.sptech.carro.exception.EntidadeConflitoException;
 import school.sptech.carro.exception.EntidadeInvalidaException;
 import school.sptech.carro.exception.EntidadeNaoEncontradaException;
@@ -21,7 +20,6 @@ public class ModeloCarroService {
         this.fabricanteRepository = fabricanteRepository;
     }
 
-    @Transactional
     public ModeloCarro save(ModeloCarro modeloCarro) {
         if (modeloCarro == null) { throw new EntidadeInvalidaException("Modelo não pode ser nulo"); }
 
@@ -38,7 +36,6 @@ public class ModeloCarroService {
         return salvo;
     }
 
-    @Transactional(readOnly = true)
     public List<ModeloCarro> findAll() {
         return modeloCarroRepository.findAll();
     }

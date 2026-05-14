@@ -1,7 +1,6 @@
 package school.sptech.carro.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import school.sptech.carro.exception.EntidadeConflitoException;
 import school.sptech.carro.exception.EntidadeInvalidaException;
 import school.sptech.carro.exception.EntidadeNaoEncontradaException;
@@ -65,5 +64,9 @@ public class CarroService {
 
         return carroRepository.findByAcessoriosContaining(acessorio);
     }
-}
 
+    public Carro buscarPorId(Long id) {
+        return carroRepository.findById(id)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Carro não encontrado"));
+    }
+}
