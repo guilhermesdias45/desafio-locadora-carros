@@ -24,8 +24,8 @@ public class AluguelService {
 
     public AluguelService(AluguelRepository repository, WebClient.Builder webClientBuilder) {
         this.repository = repository;
-        this.motoristaWebClient = webClientBuilder.baseUrl("http://localhost:8080").build();
-        this.carroWebClient = webClientBuilder.baseUrl("http://localhost:8082").build();
+        this.motoristaWebClient = webClientBuilder.baseUrl("http://localhost:8081").build();
+        this.carroWebClient = webClientBuilder.baseUrl("http://localhost:8080").build();
     }
 
     public List<Aluguel> listarTodos(){

@@ -27,9 +27,9 @@ public class GatewayController {
             ){
 
         String baseUrl = switch (service){
-            case "carros" -> "";
-            case "alugueis" -> "";
-            case "motoristas" -> "";
+            case "carros" -> "http://localhost:8080";
+            case "motoristas" -> "http://localhost:8081";
+            case "alugueis" -> "http://localhost:8082";
             default -> null;
         };
 

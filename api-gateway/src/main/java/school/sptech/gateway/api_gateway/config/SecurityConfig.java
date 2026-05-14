@@ -14,7 +14,8 @@ public class SecurityConfig {
     public SecurityWebFilterChain filterChain(ServerHttpSecurity http){
         return http.csrf(ServerHttpSecurity.CsrfSpec::disable).authorizeExchange(
                 exchanges -> exchanges.pathMatchers(
-                        "/api/usuarios/login", "/api/usuarios/registrar")
+                        "/api/auth", "/api/auth/autenticar",
+                        "/swagger-ui/**", "/v3/api-docs/**")
                         .permitAll().anyExchange().authenticated()
                 ).oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> {})).build();
     }
