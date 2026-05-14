@@ -4,4 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import school.sptech.carro.model.Acessorio;
 
 public interface AcessorioRepository extends JpaRepository<Acessorio, Long> {
+
+    Boolean existsByDescricao(String descricao);
 }
