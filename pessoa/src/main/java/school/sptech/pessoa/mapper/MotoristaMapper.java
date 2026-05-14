@@ -15,6 +15,7 @@ public class MotoristaMapper {
         motorista.setCpf(dto.cpf());
         motorista.setSexo(dto.sexo());
         motorista.setNumeroCNH(dto.numeroCNH());
+        motorista.setAtivo(true);
         return motorista;
     }
 
@@ -25,7 +26,8 @@ public class MotoristaMapper {
                 motorista.getDataNascimento(),
                 motorista.getCpf(),
                 motorista.getSexo(),
-                motorista.getNumeroCNH()
+                motorista.getNumeroCNH(),
+                motorista.getAtivo()
         );
     }
 

@@ -32,11 +32,13 @@ public abstract class Pessoa {
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;
 
-    @NotBlank(message = "CPF é obrigatório")
     @Column(nullable = false, unique = true, length = 11)
     private String cpf;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Sexo sexo;
+
+    @Column(nullable = false)
+    private Boolean ativo = true;
 }

@@ -11,5 +11,6 @@ public record FuncionarioResponseDTO(
         LocalDate dataNascimento,
         String cpf,
         Sexo sexo,
-        String matricula
+        String matricula,
+        Boolean ativo
 ) {}
