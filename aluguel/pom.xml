@@ -69,16 +69,9 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>school.sptech</groupId>
-			<artifactId>pessoa</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>school.sptech</groupId>
-			<artifactId>carro</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>compile</scope>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.5.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

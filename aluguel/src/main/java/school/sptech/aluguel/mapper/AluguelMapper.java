@@ -1,11 +1,8 @@
 package school.sptech.aluguel.mapper;
 
-import com.projeto.model.Motorista;
 import school.sptech.aluguel.dto.AluguelRequestDTO;
 import school.sptech.aluguel.dto.AluguelResponseDTO;
 import school.sptech.aluguel.model.Aluguel;
-import school.sptech.carro.model.Carro;
-import school.sptech.pessoa.dto.MotoristaResponseDTO;
 
 import java.util.List;
 
@@ -20,11 +17,9 @@ public class AluguelMapper {
                 dto.dataDevolucao(),
                 dto.valorTotal(),
                 ApoliceMapper.toEntity(dto.apolice()),
-                new Motorista(),
-                new Carro()
+                dto.motoristaId(),
+                dto.carroId()
         );
-        aluguel.getMotorista().setId(dto.motoristaId());
-        aluguel.getCarro().setId(dto.carroId());
 
         return aluguel;
     }
@@ -45,28 +40,14 @@ public class AluguelMapper {
                 aluguel.getDataDevolucao(),
                 aluguel.getValorTotal(),
                 new AluguelResponseDTO.ApoliceSeguroResponse(
+                        aluguel.getApolice().getId(),
                         aluguel.getApolice().getValorFranquia(),
                         aluguel.getApolice().getProtecaoTerceiro(),
                         aluguel.getApolice().getProtecaoCausasNaturais(),
                         aluguel.getApolice().getProtecaoRoubo()
                 ),
-                new MotoristaResponseDTO(
-                        aluguel.getMotorista().getId(),
-                        aluguel.getMotorista().getNome(),
-                        aluguel.getMotorista().getDataNascimento(),
-                        aluguel.getMotorista().getCpf(),
-                        aluguel.getMotorista().getSexo(),
-                        aluguel.getMotorista().getNumeroCNH()
-                ),
-                new CarroResponseDTO(
-                        aluguel.getCarro().getId(),
-                        aluguel.getCarro().getPlaca(),
-                        aluguel.getCarro().getChassi(),
-                        aluguel.getCarro().getCor(),
-                        aluguel.getCarro().getValorDiaria(),
-                        aluguel.getCarro().getModeloCarro(),
-                        aluguel.getCarro().getAcessorios()
-                )
+                aluguel.getMotoristaId(),
+                aluguel.getCarroId()
         );
     }
 

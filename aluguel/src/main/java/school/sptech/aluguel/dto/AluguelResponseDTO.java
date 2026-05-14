@@ -1,22 +1,21 @@
 package school.sptech.aluguel.dto;
 
-import school.sptech.pessoa.dto.MotoristaResponseDTO;
-
 import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public record AluguelResponseDTO (
         Long id,
-        Calendar dataPedido,
-        Date dataEntrega,
-        Date dataDevolucao,
+        LocalDateTime dataPedido,
+        LocalDate dataEntrega,
+        LocalDate dataDevolucao,
         BigDecimal valorTotal,
         ApoliceSeguroResponse apolice,
-        MotoristaResponseDTO motorista,
-        CarroResponseDTO carro
+        Long motoristaId,
+        Long carroId
 ){
     public record ApoliceSeguroResponse(
+            Long id,
             BigDecimal valorFranquia,
             Boolean protecaoTerceiro,
             Boolean protecaoCausasNaturais,

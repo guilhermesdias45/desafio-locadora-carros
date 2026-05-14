@@ -10,7 +10,6 @@ public record ModeloCarroRequest(
         String descricao,
 
         @NotNull
-        @NotEmpty
         Categoria categoria,
 
         @NotNull
