@@ -37,7 +37,7 @@ public class GatewayController {
             return Mono.just(ResponseEntity.status(400).body("Serviço " + service + " não encontrado."));
         }
 
-        String fullPath = request.getURI().getRawPath().replace("/api/" + service, "");
+        String fullPath = request.getURI().getRawPath().replace("/api", "");
 
         String urlCompleta = (request.getURI().getRawQuery() != null) ?
                 baseUrl + fullPath + "?" + request.getURI().getRawQuery() : baseUrl + fullPath;
