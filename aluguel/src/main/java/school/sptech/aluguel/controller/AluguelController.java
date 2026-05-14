@@ -18,8 +18,8 @@ public class AluguelController {
     private final AluguelService service;
 
     @PostMapping
-    public ResponseEntity<AluguelResponseDTO> cadastrar(AluguelRequestDTO dto){
-        return ResponseEntity.status(201).body(AluguelMapper.toDto(service.salvar(dto)));
+    public ResponseEntity<AluguelResponseDTO> cadastrar(@RequestBody AluguelRequestDTO dto){
+        return ResponseEntity.status(201).body(AluguelMapper.toDto(service.salvar(dto, dto.token())));
     }
 
     @GetMapping("/{id}")

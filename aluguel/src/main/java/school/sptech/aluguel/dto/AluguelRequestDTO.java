@@ -20,7 +20,8 @@ public record AluguelRequestDTO(
         @Positive
         Long motoristaId,
         @Positive
-        Long carroId
+        Long carroId,
+        String token
 ) {
     public record ApoliceSeguroRequest(
             @Positive

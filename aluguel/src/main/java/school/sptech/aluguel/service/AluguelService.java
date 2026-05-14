@@ -9,6 +9,7 @@ import school.sptech.aluguel.exception.EntidadeNaoEncontradaException;
 import school.sptech.aluguel.mapper.AluguelMapper;
 import school.sptech.aluguel.model.Aluguel;
 import school.sptech.aluguel.repository.AluguelRepository;
+import school.sptech.aluguel.repository.ApoliceRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -18,12 +19,15 @@ import java.util.List;
 public class AluguelService {
     private final AluguelRepository repository;
 
+    private final ApoliceRepository apoliceRepository;
+
     public final WebClient motoristaWebClient;
 
     public final WebClient carroWebClient;
 
-    public AluguelService(AluguelRepository repository, WebClient.Builder webClientBuilder) {
+    public AluguelService(AluguelRepository repository, ApoliceRepository apoliceRepository, WebClient.Builder webClientBuilder) {
         this.repository = repository;
+        this.apoliceRepository = apoliceRepository;
         this.motoristaWebClient = webClientBuilder.baseUrl("http://localhost:8081").build();
         this.carroWebClient = webClientBuilder.baseUrl("http://localhost:8080").build();
     }
@@ -32,11 +36,11 @@ public class AluguelService {
         return repository.findAll();
     }
 
-    public Aluguel salvar(AluguelRequestDTO dto){
+    public Aluguel salvar(AluguelRequestDTO dto, String token){
         Aluguel aluguel = AluguelMapper.toEntity(dto);
 
         MotoristaRequestDTO motorista = motoristaWebClient.get()
-                .uri("/motoristas/{id}", aluguel.getMotoristaId()) //
+                .uri("/motoristas/{id}", aluguel.getMotoristaId()).header("Authorization", "Bearer " + token)
                 .retrieve()
                 .bodyToMono(MotoristaRequestDTO.class)
                 .block();
@@ -61,6 +65,7 @@ public class AluguelService {
         aluguel.setValorTotal(aluguel.getApolice().getValorFranquia().add(valorDiarias));
         aluguel.setDataPedido(LocalDateTime.now());
 
+        apoliceRepository.save(aluguel.getApolice());
         return repository.save(aluguel);
     }
 
