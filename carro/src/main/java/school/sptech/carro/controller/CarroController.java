@@ -1,52 +1,64 @@
 package school.sptech.carro.controller;
 
 import jakarta.validation.Valid;
+import lombok.Getter;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import school.sptech.carro.Mapper.CarroMapper;
-import school.sptech.carro.Mapper.FabricanteMapper;
-import school.sptech.carro.Mapper.ModeloCarroMapper;
 import school.sptech.carro.dto.carro.CarroRequest;
-import school.sptech.carro.dto.fabricante.FabricanteRequest;
-import school.sptech.carro.dto.modeloCarro.ModeloCarroRequest;
+import school.sptech.carro.dto.carro.CarroResponse;
 import school.sptech.carro.model.Carro;
-import school.sptech.carro.model.Fabricante;
-import school.sptech.carro.model.ModeloCarro;
+import school.sptech.carro.service.AcessorioService;
 import school.sptech.carro.service.CarroService;
 import school.sptech.carro.service.FabricanteService;
 import school.sptech.carro.service.ModeloCarroService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/carros")
 public class CarroController {
 
     private final CarroService carroService;
-    private final ModeloCarroService modeloCarroService;
-    private final FabricanteService fabricanteService;
-    public CarroController(CarroService carroService, ModeloCarroService modeloCarroService, FabricanteService fabricanteService) {
+
+    public CarroController(CarroService carroService, ModeloCarroService modeloCarroService, FabricanteService fabricanteService, AcessorioService acessorioService) {
         this.carroService = carroService;
-        this.modeloCarroService = modeloCarroService;
-        this.fabricanteService = fabricanteService;
     }
 
     @PostMapping
-    public ResponseEntity<Carro> salvarCarro(@RequestBody @Valid CarroRequest carroRequest) {
+    public ResponseEntity<CarroResponse> salvarCarro(@RequestBody @Valid CarroRequest carroRequest) {
         Carro salvo = carroService.save(CarroMapper.toEntity(carroRequest));
-        return ResponseEntity.ok(salvo);
+        return ResponseEntity.status(201).body(CarroMapper.toResponse(salvo));
     }
 
-    @PostMapping("/modelos")
-    public ResponseEntity<ModeloCarro> salvarModeloCarro(@RequestBody @Valid ModeloCarroRequest modeloCarroRequest) {
-        ModeloCarro salvo = modeloCarroService.save(ModeloCarroMapper.toEntity(modeloCarroRequest));
-        return ResponseEntity.ok(salvo);
+    @GetMapping
+    public ResponseEntity<List<CarroResponse>> listarCarros() {
+        List<Carro> carros = carroService.findAll();
+        if (carros.isEmpty()) { return ResponseEntity.noContent().build(); }
+        List<CarroResponse> response = CarroMapper.toResponse(carros);
+        return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/fabricantes")
-    public ResponseEntity<Fabricante> salvarFabricante(@RequestBody @Valid FabricanteRequest fabricanteRequest) {
-        Fabricante salvo = fabricanteService.save(FabricanteMapper.toEntity(fabricanteRequest));
-        return ResponseEntity.ok(salvo);
+    @GetMapping("/modelos/{id}")
+    public ResponseEntity<List<CarroResponse>> filtrarPorModelo(@PathVariable Long id) {
+        List<Carro> carros = carroService.findByModelo(id);
+        if (carros.isEmpty()) { return ResponseEntity.noContent().build(); }
+        List<CarroResponse> response = CarroMapper.toResponse(carros);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/acessorios/{id}")
+    public ResponseEntity<List<CarroResponse>> filtrarPorAcessorio(@PathVariable Long id) {
+        List<Carro> carros = carroService.findByAcessorio(id);
+        if (carros.isEmpty()) { return ResponseEntity.noContent().build(); }
+        List<CarroResponse> response = CarroMapper.toResponse(carros);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CarroResponse> buscarPorId(@PathVariable Long id) {
+        Carro carro = carroService.buscarPorId(id);
+        CarroResponse response = CarroMapper.toResponse(carro);
+        return ResponseEntity.ok(response);
     }
 }
