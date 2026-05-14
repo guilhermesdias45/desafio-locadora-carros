@@ -1,10 +1,7 @@
 package school.sptech.carro.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "modelo_carro")
@@ -12,6 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class ModeloCarro {
 
     @Id
@@ -20,6 +18,7 @@ public class ModeloCarro {
 
     private String descricao;
 
+    @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
     @ManyToOne
