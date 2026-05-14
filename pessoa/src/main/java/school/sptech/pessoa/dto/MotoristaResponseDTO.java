@@ -10,5 +10,6 @@ public record MotoristaResponseDTO(
         LocalDate dataNascimento,
         String cpf,
         Sexo sexo,
-        String numeroCNH
+        String numeroCNH,
+        Boolean ativo
 ) {}

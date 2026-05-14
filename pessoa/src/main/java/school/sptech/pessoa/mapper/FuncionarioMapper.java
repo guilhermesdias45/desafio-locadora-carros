@@ -15,6 +15,7 @@ public class FuncionarioMapper {
         funcionario.setCpf(dto.cpf());
         funcionario.setSexo(dto.sexo());
         funcionario.setMatricula(dto.matricula());
+        funcionario.setAtivo(true);
         return funcionario;
     }
 
@@ -25,7 +26,8 @@ public class FuncionarioMapper {
                 funcionario.getDataNascimento(),
                 funcionario.getCpf(),
                 funcionario.getSexo(),
-                funcionario.getMatricula()
+                funcionario.getMatricula(),
+                funcionario.getAtivo()
         );
     }
 

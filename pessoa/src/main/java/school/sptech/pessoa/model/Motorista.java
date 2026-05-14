@@ -15,8 +15,7 @@ import lombok.AllArgsConstructor;
 @Table(name = "motorista")
 @PrimaryKeyJoinColumn(name = "pessoa_id")
 public class Motorista extends Pessoa {
-
-    @NotBlank(message = "Número da CNH é obrigatório")
+    
     @Column(name = "numero_cnh", nullable = false, unique = true)
     private String numeroCNH;
 

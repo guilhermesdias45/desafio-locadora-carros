@@ -4,16 +4,19 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import school.sptech.pessoa.model.Motorista;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface MotoristaRepository extends JpaRepository<Motorista, Long> {
 
-    Optional<Motorista> findByCpf(String cpf);
+    List<Motorista> findAllByAtivoTrue();
 
-    Optional<Motorista> findByNumeroCNH(String numeroCNH);
+    Optional<Motorista> findByCpfAndAtivoTrue(String cpf);
 
-    boolean existsByCpf(String cpf);
+    Optional<Motorista> findByNumeroCNHAndAtivoTrue(String numeroCNH);
 
-    boolean existsByNumeroCNH(String numeroCNH);
+    boolean existsByCpfAndAtivoTrue(String cpf);
+
+    boolean existsByNumeroCNHAndAtivoTrue(String numeroCNH);
 }
