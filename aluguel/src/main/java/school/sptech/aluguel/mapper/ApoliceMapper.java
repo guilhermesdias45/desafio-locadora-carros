@@ -10,6 +10,7 @@ public class ApoliceMapper {
         }
 
         return new ApoliceSeguro(
+                null,
                 dto.valorFranquia(),
                 dto.protecaoTerceiro(),
                 dto.protecaoCausasNaturais(),

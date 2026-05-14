@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AluguelController {
 
-    private AluguelService service;
+    private final AluguelService service;
 
     @PostMapping
     public ResponseEntity<AluguelResponseDTO> cadastrar(AluguelRequestDTO dto){
@@ -30,5 +30,15 @@ public class AluguelController {
     @GetMapping
     public ResponseEntity<List<AluguelResponseDTO>> listarTodos(){
         return ResponseEntity.status(200).body(AluguelMapper.toDto(service.listarTodos()));
+    }
+
+    @GetMapping("/carro/{id}")
+    public ResponseEntity<List<AluguelResponseDTO>> buscarPorCarroId(@PathVariable Long id){
+        return ResponseEntity.status(200).body(AluguelMapper.toDto(service.buscarPorCarro(id)));
+    }
+
+    @GetMapping("/pessoa/{id}")
+    public ResponseEntity<List<AluguelResponseDTO>> buscarPorPessoaId(@PathVariable Long id){
+        return ResponseEntity.status(200).body(AluguelMapper.toDto(service.buscarPorCliente(id)));
     }
 }

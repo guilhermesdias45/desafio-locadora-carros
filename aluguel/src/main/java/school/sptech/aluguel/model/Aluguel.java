@@ -1,12 +1,10 @@
 package school.sptech.aluguel.model;
 
-import com.projeto.model.Motorista;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import school.sptech.carro.model.Carro;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -27,22 +25,20 @@ public class Aluguel {
     private LocalDate dataDevolucao;
     private BigDecimal valorTotal;
     @OneToOne
-    @Column(name = "apolice_id")
+    @JoinColumn(name = "apolice_id")
     private ApoliceSeguro apolice;
-    @ManyToOne
     @JoinColumn(name = "motorista_id")
-    private com.projeto.model.Motorista motorista;
-    @ManyToOne
+    private Long motoristaId;
     @JoinColumn(name = "carro_id")
-    private Carro carro;
+    private Long carroId;
 
 
-    public Aluguel(LocalDate dataEntrega, LocalDate dataDevolucao, BigDecimal valorTotal, ApoliceSeguro apolice, Motorista motorista, Carro carro) {
+    public Aluguel(LocalDate dataEntrega, LocalDate dataDevolucao, BigDecimal valorTotal, ApoliceSeguro apolice, Long motorista, Long carro) {
         this.dataEntrega = dataEntrega;
         this.dataDevolucao = dataDevolucao;
         this.valorTotal = valorTotal;
         this.apolice = apolice;
-        this.motorista = motorista;
-        this.carro = carro;
+        this.motoristaId = motorista;
+        this.carroId = carro;
     }
 }
