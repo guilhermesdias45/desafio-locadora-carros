@@ -3,6 +3,15 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
+      <profile name="Annotation profile for pessoa" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
+        </processorPath>
+        <module name="pessoa" />
+      </profile>
       <profile name="Annotation profile for carro" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -11,18 +20,15 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
         </processorPath>
+        <module name="api-gateway" />
         <module name="carro" />
+        <module name="aluguel" />
       </profile>
-      <profile name="Annotation profile for pessoa" enabled="true">
+      <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
-        </processorPath>
-        <module name="api-gateway" />
-        <module name="aluguel" />
-        <module name="pessoa" />
+        <module name="mail-sender" />
       </profile>
     </annotationProcessing>
   </component>
@@ -31,6 +37,7 @@
       <module name="aluguel" options="-parameters" />
       <module name="api-gateway" options="-parameters" />
       <module name="carro" options="-parameters" />
+      <module name="mail-sender" options="-parameters" />
       <module name="pessoa" options="-parameters" />
     </option>
   </component>
