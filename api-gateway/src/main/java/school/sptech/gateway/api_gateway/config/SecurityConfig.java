@@ -10,6 +10,7 @@ import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
 import javax.crypto.spec.SecretKeySpec;
+import java.util.Base64;
 
 @Configuration
 @EnableWebFluxSecurity
@@ -22,7 +23,7 @@ public class SecurityConfig {
     public SecurityWebFilterChain filterChain(ServerHttpSecurity http){
         http.csrf(ServerHttpSecurity.CsrfSpec::disable).authorizeExchange(
                 exchanges -> exchanges.pathMatchers(
-                        "/api/auth", "/api/auth/autenticar",
+                                "/api/auth/**", "/api/auth",
                         "/swagger-ui/**", "/v3/api-docs/**")
                         .permitAll().anyExchange().authenticated()
                 ).oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtDecoder(reactiveJwtDecoder())));
@@ -33,7 +34,7 @@ public class SecurityConfig {
     @Bean
     public ReactiveJwtDecoder reactiveJwtDecoder() {
         try {
-            byte[] secretBytes = this.secretKeyBase64.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+            byte[] secretBytes = Base64.getDecoder().decode(this.secretKeyBase64.trim());
             SecretKeySpec secretKey = new SecretKeySpec(secretBytes, "HmacSHA256");
 
             return NimbusReactiveJwtDecoder.withSecretKey(secretKey).build();

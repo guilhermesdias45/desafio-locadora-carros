@@ -48,11 +48,9 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
                                 "/v3/api-docs/**",
-                                "/v3/api-docs.yaml"
-                        ).permitAll()
-                        .requestMatchers(
+                                "/v3/api-docs.yaml",
                                 "/auth",
-                                "/auth/autenticar"
+                                "/auth/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -67,8 +65,10 @@ public class SecurityConfig {
                             try {
                                 String token = authHeader.substring(7);
 
+                                byte[] secretBytes = java.util.Base64.getDecoder().decode(secretKeyPlain.trim());
+
                                 String username = Jwts.parser()
-                                        .verifyWith(io.jsonwebtoken.security.Keys.hmacShaKeyFor(secretKeyPlain.getBytes(StandardCharsets.UTF_8)))
+                                        .verifyWith(io.jsonwebtoken.security.Keys.hmacShaKeyFor(secretBytes))
                                         .build()
                                         .parseSignedClaims(token)
                                         .getPayload()

@@ -22,7 +22,7 @@ public class GatewayController {
             @PathVariable String service,
             @RequestHeader HttpHeaders headers,
             @RequestParam(required = false)MultiValueMap<String, String> queryParams,
-            @RequestBody(required = false) Mono<String> body,
+            @RequestBody(required = false) String body,
             ServerHttpRequest request
             ){
 
@@ -45,8 +45,15 @@ public class GatewayController {
 
         return webClient.method(request.getMethod())
                 .uri(urlCompleta)
-                .headers(httpHeaders -> httpHeaders.addAll(headers))
-                .body(body == null ? Mono.empty() : body, String.class)
+                .headers(httpHeaders -> // httpHeaders.addAll(headers)
+                {
+                    headers.forEach((nome, valores) -> {
+                        if (!nome.equalsIgnoreCase("host") && !nome.equalsIgnoreCase("content-length")) {
+                            httpHeaders.addAll(nome, valores);
+                        }
+                    });
+                })
+                .bodyValue(body != null ? body : "")
                 .retrieve()
                 .toEntity(String.class);
     }
