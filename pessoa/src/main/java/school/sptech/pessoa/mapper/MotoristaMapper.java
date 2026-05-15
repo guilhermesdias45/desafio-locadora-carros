@@ -13,6 +13,7 @@ public class MotoristaMapper {
         motorista.setNome(dto.nome());
         motorista.setDataNascimento(dto.dataNascimento());
         motorista.setCpf(dto.cpf());
+        motorista.setEmail(dto.email());
         motorista.setSexo(dto.sexo());
         motorista.setNumeroCNH(dto.numeroCNH());
         motorista.setAtivo(true);
@@ -25,6 +26,7 @@ public class MotoristaMapper {
                 motorista.getNome(),
                 motorista.getDataNascimento(),
                 motorista.getCpf(),
+                motorista.getEmail(),
                 motorista.getSexo(),
                 motorista.getNumeroCNH(),
                 motorista.getAtivo()
@@ -35,6 +37,7 @@ public class MotoristaMapper {
         motorista.setNome(dto.nome());
         motorista.setDataNascimento(dto.dataNascimento());
         motorista.setCpf(dto.cpf());
+        motorista.setEmail(dto.email());
         motorista.setSexo(dto.sexo());
         motorista.setNumeroCNH(dto.numeroCNH());
     }

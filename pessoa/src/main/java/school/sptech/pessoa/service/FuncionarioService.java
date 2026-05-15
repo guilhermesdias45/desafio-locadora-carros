@@ -38,6 +38,12 @@ public class FuncionarioService {
         return funcionarioMapper.toResponseDTO(funcionario);
     }
 
+    public FuncionarioResponseDTO buscarPorEmail(String email) {
+        Funcionario funcionario = funcionarioRepository.findByEmailAndAtivoTrue(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Funcionário não encontrado com email: " + email));
+        return funcionarioMapper.toResponseDTO(funcionario);
+    }
+
     @Transactional
     public FuncionarioResponseDTO criar(FuncionarioRequestDTO dto) {
         if (funcionarioRepository.existsByCpfAndAtivoTrue(dto.cpf())) {
@@ -45,6 +51,10 @@ public class FuncionarioService {
         }
         if (funcionarioRepository.existsByMatriculaAndAtivoTrue(dto.matricula())) {
             throw new BusinessException("Já existe um funcionário com a matrícula: " + dto.matricula());
+        }
+
+        if (funcionarioRepository.existsByEmailAndAtivoTrue(dto.email())) {
+            throw new BusinessException("Já existe um funcionário com o email: " + dto.email());
         }
 
         Funcionario funcionario = funcionarioMapper.toEntity(dto);
@@ -62,6 +72,9 @@ public class FuncionarioService {
         }
         if (!funcionario.getMatricula().equals(dto.matricula()) && funcionarioRepository.existsByMatriculaAndAtivoTrue(dto.matricula())) {
             throw new BusinessException("Já existe um funcionário com a matrícula: " + dto.matricula());
+        }
+        if (!funcionario.getEmail().equals(dto.email()) && funcionarioRepository.existsByEmailAndAtivoTrue(dto.email())) {
+            throw new BusinessException("Já existe um funcionário com o email: " + dto.email());
         }
 
         funcionarioMapper.updateEntityFromDTO(dto, funcionario);
