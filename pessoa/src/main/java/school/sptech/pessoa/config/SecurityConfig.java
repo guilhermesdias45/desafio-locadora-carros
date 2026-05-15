@@ -56,7 +56,6 @@ public class SecurityConfig {
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
-                // Adiciona o mini-filtro de validação antes do filtro padrão do Spring
                 .addFilterBefore(new OncePerRequestFilter() {
                     @Override
                     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -68,7 +67,6 @@ public class SecurityConfig {
                             try {
                                 String token = authHeader.substring(7);
 
-                                // Decodifica usando EXATAMENTE a mesma lógica do seu JwtService
                                 String username = Jwts.parser()
                                         .verifyWith(io.jsonwebtoken.security.Keys.hmacShaKeyFor(secretKeyPlain.getBytes(StandardCharsets.UTF_8)))
                                         .build()
@@ -82,7 +80,6 @@ public class SecurityConfig {
                                     SecurityContextHolder.getContext().setAuthentication(auth);
                                 }
                             } catch (Exception e) {
-                                // Se o token for inválido ou expirar, limpa o contexto
                                 SecurityContextHolder.clearContext();
                             }
                         }

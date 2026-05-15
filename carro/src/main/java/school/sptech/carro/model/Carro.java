@@ -28,7 +28,7 @@ public class Carro {
 
     private BigDecimal valorDiaria;
 
-    @ManyToOne//(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "modelo_carro_id")
     private ModeloCarro modeloCarro;
 

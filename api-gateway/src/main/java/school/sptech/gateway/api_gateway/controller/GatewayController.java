@@ -30,6 +30,7 @@ public class GatewayController {
             case "carros" -> "http://localhost:8080";
             case "motoristas" -> "http://localhost:8081";
             case "alugueis" -> "http://localhost:8082";
+            case "auth" -> "http://localhost:8081";
             default -> null;
         };
 
