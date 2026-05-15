@@ -45,6 +45,12 @@ public class MotoristaService {
         return motoristaMapper.toResponseDTO(motorista);
     }
 
+    public MotoristaResponseDTO buscarPorEmail(String email) {
+        Motorista motorista = motoristaRepository.findByEmailAndAtivoTrue(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Motorista não encontrado com email: " + email));
+        return motoristaMapper.toResponseDTO(motorista);
+    }
+
     @Transactional
     public MotoristaResponseDTO criar(MotoristaRequestDTO dto) {
         if (motoristaRepository.existsByCpfAndAtivoTrue(dto.cpf())) {
@@ -52,6 +58,10 @@ public class MotoristaService {
         }
         if (motoristaRepository.existsByNumeroCNHAndAtivoTrue(dto.numeroCNH())) {
             throw new BusinessException("Já existe um motorista com a CNH: " + dto.numeroCNH());
+        }
+
+        if (motoristaRepository.existsByEmailAndAtivoTrue(dto.email())) {
+            throw new BusinessException("Já existe um motorista com o email: " + dto.email());
         }
 
         Motorista motorista = motoristaMapper.toEntity(dto);
@@ -69,6 +79,9 @@ public class MotoristaService {
         }
         if (!motorista.getNumeroCNH().equals(dto.numeroCNH()) && motoristaRepository.existsByNumeroCNHAndAtivoTrue(dto.numeroCNH())) {
             throw new BusinessException("Já existe um motorista com a CNH: " + dto.numeroCNH());
+        }
+        if (!motorista.getEmail().equals(dto.email()) && motoristaRepository.existsByEmailAndAtivoTrue(dto.email())) {
+            throw new BusinessException("Já existe um motorista com o email: " + dto.email());
         }
 
         motoristaMapper.updateEntityFromDTO(dto, motorista);

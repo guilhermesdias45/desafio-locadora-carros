@@ -1,6 +1,7 @@
 package school.sptech.pessoa.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -34,6 +35,10 @@ public abstract class Pessoa {
 
     @Column(nullable = false, unique = true, length = 11)
     private String cpf;
+
+    @Email(message = "Email deve ser válido")
+    @Column(nullable = false, unique = true)
+    private String email;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

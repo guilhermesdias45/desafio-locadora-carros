@@ -10,6 +10,7 @@ public record FuncionarioResponseDTO(
         String nome,
         LocalDate dataNascimento,
         String cpf,
+        String email,
         Sexo sexo,
         String matricula,
         Boolean ativo

@@ -9,6 +9,7 @@ public record MotoristaResponseDTO(
         String nome,
         LocalDate dataNascimento,
         String cpf,
+        String email,
         Sexo sexo,
         String numeroCNH,
         Boolean ativo

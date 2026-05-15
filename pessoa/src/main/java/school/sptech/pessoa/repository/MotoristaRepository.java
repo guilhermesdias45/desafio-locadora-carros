@@ -16,6 +16,10 @@ public interface MotoristaRepository extends JpaRepository<Motorista, Long> {
 
     Optional<Motorista> findByNumeroCNHAndAtivoTrue(String numeroCNH);
 
+    Optional<Motorista> findByEmailAndAtivoTrue(String email);
+
+    boolean existsByEmailAndAtivoTrue(String email);
+
     boolean existsByCpfAndAtivoTrue(String cpf);
 
     boolean existsByNumeroCNHAndAtivoTrue(String numeroCNH);
