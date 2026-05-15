@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusReactiveJwtDecoder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -35,9 +36,10 @@ public class SecurityConfig {
     public ReactiveJwtDecoder reactiveJwtDecoder() {
         try {
             byte[] secretBytes = Base64.getDecoder().decode(this.secretKeyBase64.trim());
-            SecretKeySpec secretKey = new SecretKeySpec(secretBytes, "HmacSHA256");
+            SecretKeySpec secretKey = new SecretKeySpec(secretBytes, "HmacSHA512");
 
-            return NimbusReactiveJwtDecoder.withSecretKey(secretKey).build();
+            return NimbusReactiveJwtDecoder.withSecretKey(secretKey)
+                    .macAlgorithm(MacAlgorithm.HS512).build();
         } catch (Exception e) {
             throw new IllegalArgumentException("Chave secreta inválida. Verifique a configuração em jwt.secret", e);
         }
