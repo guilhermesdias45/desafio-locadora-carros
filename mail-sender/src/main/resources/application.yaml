@@ -1,0 +1,13 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: mail-sender
+  rabbitmq:
+    host: jackal.rmq.cloudamqp.com
+    port: 5672
+    virtual-host: eqrgexla
+    username: eqrgexla
+    password: CXoX-m5CjdQ5NlHkVc3KHwqNomuCf1vZ
+queue:
+  name: qtest
