@@ -7,6 +7,8 @@ public record MotoristaRequestDTO(
         String nome,
         LocalDate dataNascimento,
         String cpf,
+        String email,
         String sexo,
+        Boolean ativo,
         String numeroCNH
 ) {}

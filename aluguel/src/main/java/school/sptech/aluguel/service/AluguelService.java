@@ -1,5 +1,6 @@
 package school.sptech.aluguel.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import school.sptech.aluguel.dto.AluguelRequestDTO;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Slf4j
 public class AluguelService {
     private final AluguelRepository repository;
 
@@ -26,11 +28,14 @@ public class AluguelService {
 
     public final WebClient carroWebClient;
 
-    public AluguelService(AluguelRepository repository, ApoliceRepository apoliceRepository, WebClient.Builder webClientBuilder) {
+    private final EmailProducerService emailProducerService;
+
+    public AluguelService(AluguelRepository repository, ApoliceRepository apoliceRepository, WebClient.Builder webClientBuilder, EmailProducerService emailProducerService) {
         this.repository = repository;
         this.apoliceRepository = apoliceRepository;
         this.motoristaWebClient = webClientBuilder.baseUrl("http://localhost:8081").build();
         this.carroWebClient = webClientBuilder.baseUrl("http://localhost:8080").build();
+        this.emailProducerService = emailProducerService;
     }
 
     public List<Aluguel> listarTodos(){
@@ -69,6 +74,16 @@ public class AluguelService {
 
         aluguel.setValorTotal(aluguel.getApolice().getValorFranquia().add(valorDiarias));
         aluguel.setDataPedido(LocalDateTime.now());
+
+        try {
+            emailProducerService.enviarDadosUsuario(
+                    motorista.email(),
+                    motorista.nome(),
+                    "MOTORISTA"
+            );
+        } catch (Exception e) {
+            log.warn("Erro ao enfileirar email: {}", e.getMessage());
+        }
 
         apoliceRepository.save(aluguel.getApolice());
         return repository.save(aluguel);
