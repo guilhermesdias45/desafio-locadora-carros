@@ -19,17 +19,11 @@ public class EmailProducerService {
     @Value("${queue.name}")
     private String queueName;
 
-    public void enviarDadosUsuario(String email, String nome, String tipoUsuario) {
+    public void enviarDadosAluguel(Object dadosAluguel) {
         try {
-            EmailDTO emailDTO = EmailDTO.builder()
-                    .destinatario(email)
-                    .nome(nome)
-                    .tipoUsuario(tipoUsuario)
-                    .build();
+            log.info("Enfileirando dados do usuário: {}");
 
-            log.info("Enfileirando dados do usuário: {}", email);
-
-            String jsonMessage = objectMapper.writeValueAsString(emailDTO);
+            String jsonMessage = objectMapper.writeValueAsString(dadosAluguel);
             rabbitTemplate.convertAndSend(queueName, jsonMessage);
 
             log.info("Dados enfileirados na fila: {}", queueName);

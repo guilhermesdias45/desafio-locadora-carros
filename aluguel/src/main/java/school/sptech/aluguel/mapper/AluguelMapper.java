@@ -1,5 +1,6 @@
 package school.sptech.aluguel.mapper;
 
+import school.sptech.aluguel.dto.AluguelCompletoRequestDTO;
 import school.sptech.aluguel.dto.AluguelRequestDTO;
 import school.sptech.aluguel.dto.AluguelResponseDTO;
 import school.sptech.aluguel.model.Aluguel;
@@ -52,5 +53,35 @@ public class AluguelMapper {
 
     public static List<AluguelResponseDTO> toDto(List<Aluguel> alugueis){
         return alugueis.stream().map(AluguelMapper::toDto).toList();
+    }
+
+    public static AluguelCompletoRequestDTO toAluguelCompletoDto(Aluguel aluguel){
+        if (aluguel == null){
+            return null;
+        }
+        return new AluguelCompletoRequestDTO(
+                aluguel.getId(),
+                aluguel.getDataPedido(),
+                aluguel.getDataEntrega(),
+                aluguel.getDataDevolucao(),
+                aluguel.getValorTotal(),
+                aluguel.getApolice(),
+                new AluguelCompletoRequestDTO.MotoristaRequestDTO(
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                ),
+                new AluguelCompletoRequestDTO.CarroRequestDTO(
+                        null,
+                        null,
+                        null,
+                        null,
+                        null)
+        );
     }
 }

@@ -3,9 +3,8 @@ package school.sptech.aluguel.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import school.sptech.aluguel.dto.AluguelCompletoRequestDTO;
 import school.sptech.aluguel.dto.AluguelRequestDTO;
-import school.sptech.aluguel.dto.CarroRequestDTO;
-import school.sptech.aluguel.dto.MotoristaRequestDTO;
 import school.sptech.aluguel.exception.EntidadeConflitoException;
 import school.sptech.aluguel.exception.EntidadeNaoEncontradaException;
 import school.sptech.aluguel.mapper.AluguelMapper;
@@ -45,10 +44,10 @@ public class AluguelService {
     public Aluguel salvar(AluguelRequestDTO dto){
         Aluguel aluguel = AluguelMapper.toEntity(dto);
 
-        MotoristaRequestDTO motorista = motoristaWebClient.get()
+        AluguelCompletoRequestDTO.MotoristaRequestDTO motorista = motoristaWebClient.get()
                 .uri("/motoristas/{id}", aluguel.getMotoristaId())
                 .retrieve()
-                .bodyToMono(MotoristaRequestDTO.class)
+                .bodyToMono(AluguelCompletoRequestDTO.MotoristaRequestDTO.class)
                 .block();
 
         if (motorista == null) {
@@ -59,10 +58,10 @@ public class AluguelService {
             throw new EntidadeConflitoException("Carro escolhido já está alugado nesse período, escolha outro período ou outro carro.");
         }
 
-        CarroRequestDTO carro = carroWebClient.get()
+        AluguelCompletoRequestDTO.CarroRequestDTO carro = carroWebClient.get()
                 .uri("/carros/{id}", aluguel.getCarroId())
                 .retrieve()
-                .bodyToMono(CarroRequestDTO.class)
+                .bodyToMono(AluguelCompletoRequestDTO.CarroRequestDTO.class)
                 .block();
 
         if (carro == null) {
@@ -70,23 +69,24 @@ public class AluguelService {
         }
 
         long dias = java.time.temporal.ChronoUnit.DAYS.between(aluguel.getDataEntrega(), aluguel.getDataDevolucao());
-        BigDecimal valorDiarias = carro.valorDiaria().multiply(BigDecimal.valueOf(dias));
+        BigDecimal valorTotal = carro.valorDiaria().multiply(BigDecimal.valueOf(dias));
 
-        aluguel.setValorTotal(aluguel.getApolice().getValorFranquia().add(valorDiarias));
+        aluguel.setValorTotal(aluguel.getApolice().getValorFranquia().add(valorTotal));
         aluguel.setDataPedido(LocalDateTime.now());
 
+        apoliceRepository.save(aluguel.getApolice());
+        Aluguel aluguelRetorno = repository.save(aluguel);
+
+        AluguelCompletoRequestDTO aluguelSalvo = AluguelMapper
+                .toAluguelCompletoDto(aluguelRetorno);
+
         try {
-            emailProducerService.enviarDadosUsuario(
-                    motorista.email(),
-                    motorista.nome(),
-                    "MOTORISTA"
-            );
+            emailProducerService.enviarDadosAluguel(aluguelSalvo);
         } catch (Exception e) {
             log.warn("Erro ao enfileirar email: {}", e.getMessage());
         }
 
-        apoliceRepository.save(aluguel.getApolice());
-        return repository.save(aluguel);
+        return aluguelRetorno;
     }
 
     public Aluguel buscarPorId(Long id){
