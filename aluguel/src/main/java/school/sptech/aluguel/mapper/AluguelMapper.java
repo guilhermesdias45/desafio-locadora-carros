@@ -15,7 +15,6 @@ public class AluguelMapper {
         Aluguel aluguel = new Aluguel(
                 dto.dataEntrega(),
                 dto.dataDevolucao(),
-                dto.valorTotal(),
                 ApoliceMapper.toEntity(dto.apolice()),
                 dto.motoristaId(),
                 dto.carroId()

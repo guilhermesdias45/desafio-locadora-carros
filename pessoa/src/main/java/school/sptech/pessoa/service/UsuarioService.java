@@ -20,6 +20,9 @@ public class UsuarioService {
 
 
     public Usuario salvar(UsuarioRequestDTO dto) {
+        if (repository.findByLogin(dto.login()).isPresent()){
+            throw  new RuntimeException("Credenciais já existentes.");
+        }
         Usuario usuario = new Usuario();
         usuario.setLogin(dto.login());
         usuario.setSenha(passwordEncoder.encode(dto.senha()));
@@ -36,6 +39,6 @@ public class UsuarioService {
             return UsuarioMapper.toToken(jwtToken);
         }
 
-        throw new RuntimeException("Usuário ou senha inválidos");
+        throw new RuntimeException("Credenciais inválidos.");
     }
 }
