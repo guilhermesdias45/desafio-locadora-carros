@@ -5,6 +5,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import school.sptech.aluguel.dto.AluguelRequestDTO;
 import school.sptech.aluguel.dto.CarroRequestDTO;
 import school.sptech.aluguel.dto.MotoristaRequestDTO;
+import school.sptech.aluguel.exception.EntidadeConflitoException;
 import school.sptech.aluguel.exception.EntidadeNaoEncontradaException;
 import school.sptech.aluguel.mapper.AluguelMapper;
 import school.sptech.aluguel.model.Aluguel;
@@ -36,17 +37,21 @@ public class AluguelService {
         return repository.findAll();
     }
 
-    public Aluguel salvar(AluguelRequestDTO dto, String token){
+    public Aluguel salvar(AluguelRequestDTO dto){
         Aluguel aluguel = AluguelMapper.toEntity(dto);
 
         MotoristaRequestDTO motorista = motoristaWebClient.get()
-                .uri("/motoristas/{id}", aluguel.getMotoristaId()).header("Authorization", "Bearer " + token)
+                .uri("/motoristas/{id}", aluguel.getMotoristaId())
                 .retrieve()
                 .bodyToMono(MotoristaRequestDTO.class)
                 .block();
 
         if (motorista == null) {
             throw new EntidadeNaoEncontradaException("Motorista não encontrado no microsserviço Pessoa");
+        }
+
+        if (repository.existsByCarroIdAndDataEntregaLessThanEqualAndDataDevolucaoGreaterThanEqual(dto.carroId(), aluguel.getDataDevolucao(), aluguel.getDataEntrega())){
+            throw new EntidadeConflitoException("Carro escolhido já está alugado nesse período, escolha outro período ou outro carro.");
         }
 
         CarroRequestDTO carro = carroWebClient.get()
