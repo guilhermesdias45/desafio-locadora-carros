@@ -13,15 +13,12 @@ public record AluguelRequestDTO(
         LocalDate dataEntrega,
         @FutureOrPresent
         LocalDate dataDevolucao,
-        @Positive
-        BigDecimal valorTotal,
         @NotNull
         ApoliceSeguroRequest apolice,
         @Positive
         Long motoristaId,
         @Positive
-        Long carroId,
-        String token
+        Long carroId
 ) {
     public record ApoliceSeguroRequest(
             @Positive

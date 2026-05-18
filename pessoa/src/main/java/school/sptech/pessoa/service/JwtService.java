@@ -17,9 +17,10 @@ public class JwtService {
     private final SecretKey secretKey;
 
     public JwtService(@Value("${jwt.secret}") String secretKeyPlain){
-        try{
-            this.secretKey = Keys.hmacShaKeyFor(secretKeyPlain.getBytes(StandardCharsets.UTF_8));
-        }catch (Exception e){
+        try {
+            byte[] secretBytes = java.util.Base64.getDecoder().decode(secretKeyPlain.trim());
+            this.secretKey = Keys.hmacShaKeyFor(secretBytes);
+        } catch (Exception e) {
             logger.error("Erro ao configurar a chave secreta: {}", e.getMessage());
             throw new IllegalArgumentException("Chave secreta inválida. Verifique o jwt.secret", e);
         }

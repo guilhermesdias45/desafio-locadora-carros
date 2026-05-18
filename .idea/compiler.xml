@@ -23,6 +23,9 @@
         <module name="mail-dto-shared" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="mail-sender (1)" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

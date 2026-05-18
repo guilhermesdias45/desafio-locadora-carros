@@ -33,10 +33,9 @@ public class Aluguel {
     private Long carroId;
 
 
-    public Aluguel(LocalDate dataEntrega, LocalDate dataDevolucao, BigDecimal valorTotal, ApoliceSeguro apolice, Long motorista, Long carro) {
+    public Aluguel(LocalDate dataEntrega, LocalDate dataDevolucao, ApoliceSeguro apolice, Long motorista, Long carro) {
         this.dataEntrega = dataEntrega;
         this.dataDevolucao = dataDevolucao;
-        this.valorTotal = valorTotal;
         this.apolice = apolice;
         this.motoristaId = motorista;
         this.carroId = carro;

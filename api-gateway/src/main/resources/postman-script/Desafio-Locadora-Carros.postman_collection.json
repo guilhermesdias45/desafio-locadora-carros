@@ -1,0 +1,1531 @@
+{
+  "info": {
+    "_postman_id": "451c4039-8e89-4b64-a05b-9b73e44de37f",
+    "name": "Desafio Locadora Carros",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54507071",
+    "_collection_link": "https://go.postman.co/collection/54507071-451c4039-8e89-4b64-a05b-9b73e44de37f?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Carro",
+      "item": [
+        {
+          "name": "Carros",
+          "item": [
+            {
+              "name": "Listar Carros",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/carros",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "carros"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Buscar Carro por Id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/carros/11",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "carros",
+                    "11"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Cadastrar Carro",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"placa\": \"string\",\r\n  \"chassi\": \"string\",\r\n  \"cor\": \"Amarelo\",\r\n  \"valorDiaria\": 100,\r\n  \"modeloCarroId\": 1,\r\n  \"acessorioIds\": [\r\n    1\r\n  ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/carros",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "carros"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Filtrar Carros por Modelos",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/carros/modelos/4",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "carros",
+                    "modelos",
+                    "4"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Filtrar Carros por Acessorios",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/carros/acessorios/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "carros",
+                    "acessorios",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Modelos",
+          "item": [
+            {
+              "name": "Listar Modelos",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/modelos",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "modelos"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Cadastrar Modelos",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"descricao\": \"Carrão Muito Bão\",\r\n  \"categoria\": \"HATCH_COMPACTO\",\r\n  \"fabricanteId\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/modelos",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "modelos"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Acessorios",
+          "item": [
+            {
+              "name": "Listar Acessórios",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/acessorios",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "acessorios"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Cadastrar Acessórios",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"descricao\": \"Acessórios\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/acessorios",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "acessorios"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Fabricante",
+          "item": [
+            {
+              "name": "Listar Fabricantes",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/fabricantes",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "fabricantes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Cadastrar Fabricantes",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Fabricantium\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/fabricantes",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "fabricantes"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Pessoa",
+      "item": [
+        {
+          "name": "Usuario",
+          "item": [
+            {
+              "name": "Cadastrar Usuario",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"login\": \"string3\",\r\n  \"senha\": \"string3\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8081/auth",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8081",
+                  "path": [
+                    "auth"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Autenticar Usuario",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmczIiwiaWF0IjoxNzc4ODY3ODMzLCJleHAiOjE3Nzg4NzE0MzN9.u-ERNJJFA253aI2h2nVNulGZk86DISNPKsRlBk94p0KnAlCIi0A10OJYLUF_VzfmOTnQNRlh9zbEC2TGQoDm-w",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"login\": \"string3\",\r\n  \"senha\": \"string3\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8081/auth/autenticar",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8081",
+                  "path": [
+                    "auth",
+                    "autenticar"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Motorista",
+          "item": [
+            {
+              "name": "Listar Motoristas",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmczIiwiaWF0IjoxNzc4ODY3ODMzLCJleHAiOjE3Nzg4NzE0MzN9.u-ERNJJFA253aI2h2nVNulGZk86DISNPKsRlBk94p0KnAlCIi0A10OJYLUF_VzfmOTnQNRlh9zbEC2TGQoDm-w",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8081/motoristas",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8081",
+                  "path": [
+                    "motoristas"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Buscar Motorista por Id",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmczIiwiaWF0IjoxNzc4ODY3ODMzLCJleHAiOjE3Nzg4NzE0MzN9.u-ERNJJFA253aI2h2nVNulGZk86DISNPKsRlBk94p0KnAlCIi0A10OJYLUF_VzfmOTnQNRlh9zbEC2TGQoDm-w",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8081/motoristas/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8081",
+                  "path": [
+                    "motoristas",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Deletar Logicamente Motorista",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmczIiwiaWF0IjoxNzc4ODY3ODMzLCJleHAiOjE3Nzg4NzE0MzN9.u-ERNJJFA253aI2h2nVNulGZk86DISNPKsRlBk94p0KnAlCIi0A10OJYLUF_VzfmOTnQNRlh9zbEC2TGQoDm-w",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8081/motoristas/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8081",
+                  "path": [
+                    "motoristas",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Atualizar Motorista",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmczIiwiaWF0IjoxNzc4ODY3ODMzLCJleHAiOjE3Nzg4NzE0MzN9.u-ERNJJFA253aI2h2nVNulGZk86DISNPKsRlBk94p0KnAlCIi0A10OJYLUF_VzfmOTnQNRlh9zbEC2TGQoDm-w",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"string\",\r\n  \"dataNascimento\": \"2026-01-01\",\r\n  \"cpf\": \"stringstrin\",\r\n  \"email\": \"user@example.com\",\r\n  \"sexo\": \"MASCULINO\",\r\n  \"numeroCNH\": \"string\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8081/motoristas/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8081",
+                  "path": [
+                    "motoristas",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Cadastrar Motoristas",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmczIiwiaWF0IjoxNzc4ODY3ODMzLCJleHAiOjE3Nzg4NzE0MzN9.u-ERNJJFA253aI2h2nVNulGZk86DISNPKsRlBk94p0KnAlCIi0A10OJYLUF_VzfmOTnQNRlh9zbEC2TGQoDm-w",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"string\",\r\n  \"dataNascimento\": \"2026-05-15\",\r\n  \"cpf\": \"stringstrin\",\r\n  \"email\": \"user@example.com\",\r\n  \"sexo\": \"MASCULINO\",\r\n  \"numeroCNH\": \"string\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8081/motoristas",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8081",
+                  "path": [
+                    "motoristas"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Buscar Motorista por Cpf",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmczIiwiaWF0IjoxNzc4ODY3ODMzLCJleHAiOjE3Nzg4NzE0MzN9.u-ERNJJFA253aI2h2nVNulGZk86DISNPKsRlBk94p0KnAlCIi0A10OJYLUF_VzfmOTnQNRlh9zbEC2TGQoDm-w",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"string\",\r\n  \"dataNascimento\": \"2026-01-01\",\r\n  \"cpf\": \"stringstrin\",\r\n  \"email\": \"user@example.com\",\r\n  \"sexo\": \"MASCULINO\",\r\n  \"numeroCNH\": \"string\"\r\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:8081/motoristas",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8081",
+                  "path": [
+                    "motoristas"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Aluguel",
+      "item": [
+        {
+          "name": "Listar Alugueis",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmczIiwiaWF0IjoxNzc4ODY3ODMzLCJleHAiOjE3Nzg4NzE0MzN9.u-ERNJJFA253aI2h2nVNulGZk86DISNPKsRlBk94p0KnAlCIi0A10OJYLUF_VzfmOTnQNRlh9zbEC2TGQoDm-w",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/alugueis",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "alugueis"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar Aluguel por Id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmczIiwiaWF0IjoxNzc4ODY3ODMzLCJleHAiOjE3Nzg4NzE0MzN9.u-ERNJJFA253aI2h2nVNulGZk86DISNPKsRlBk94p0KnAlCIi0A10OJYLUF_VzfmOTnQNRlh9zbEC2TGQoDm-w",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/alugueis/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "alugueis",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar Aluguel por Motorista",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmczIiwiaWF0IjoxNzc4ODY3ODMzLCJleHAiOjE3Nzg4NzE0MzN9.u-ERNJJFA253aI2h2nVNulGZk86DISNPKsRlBk94p0KnAlCIi0A10OJYLUF_VzfmOTnQNRlh9zbEC2TGQoDm-w",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/alugueis/pessoa/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "alugueis",
+                "pessoa",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar Aluguel por Carro",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmczIiwiaWF0IjoxNzc4ODY3ODMzLCJleHAiOjE3Nzg4NzE0MzN9.u-ERNJJFA253aI2h2nVNulGZk86DISNPKsRlBk94p0KnAlCIi0A10OJYLUF_VzfmOTnQNRlh9zbEC2TGQoDm-w",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/alugueis/carro/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "alugueis",
+                "carro",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cadastrar Aluguel",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmczIiwiaWF0IjoxNzc4ODY3ODMzLCJleHAiOjE3Nzg4NzE0MzN9.u-ERNJJFA253aI2h2nVNulGZk86DISNPKsRlBk94p0KnAlCIi0A10OJYLUF_VzfmOTnQNRlh9zbEC2TGQoDm-w",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"dataEntrega\": \"2026-05-15\",\r\n  \"dataDevolucao\": \"2026-05-15\",\r\n  \"apolice\": {\r\n    \"valorFranquia\": 1000,\r\n    \"protecaoTerceiro\": true,\r\n    \"protecaoCausasNaturais\": true,\r\n    \"protecaoRoubo\": true\r\n  },\r\n  \"motoristaId\": 1,\r\n  \"carroId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/alugueis",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "alugueis"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Api-gateway",
+      "item": [
+        {
+          "name": "Carro com gateway",
+          "item": [
+            {
+              "name": "Carros",
+              "item": [
+                {
+                  "name": "Listar Carros",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmczIiwiaWF0IjoxNzc4ODY3ODMzLCJleHAiOjE3Nzg4NzE0MzN9.u-ERNJJFA253aI2h2nVNulGZk86DISNPKsRlBk94p0KnAlCIi0A10OJYLUF_VzfmOTnQNRlh9zbEC2TGQoDm-w",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8025/api/carros",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8025",
+                      "path": [
+                        "api",
+                        "carros"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Buscar Carro por Id",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8025/api/carros/11",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8025",
+                      "path": [
+                        "api",
+                        "carros",
+                        "11"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Cadastrar Carro",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"placa\": \"string\",\r\n  \"chassi\": \"string\",\r\n  \"cor\": \"Amarelo\",\r\n  \"valorDiaria\": 100,\r\n  \"modeloCarroId\": 1,\r\n  \"acessorioIds\": [\r\n    1\r\n  ]\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8025/api/carros",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8025",
+                      "path": [
+                        "api",
+                        "carros"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Filtrar Carros por Modelos",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8025/api/carros/modelos/4",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8025",
+                      "path": [
+                        "api",
+                        "carros",
+                        "modelos",
+                        "4"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Filtrar Carros por Acessorios",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8025/api/carros/acessorios/1",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8025",
+                      "path": [
+                        "api",
+                        "carros",
+                        "acessorios",
+                        "1"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Modelos",
+              "item": [
+                {
+                  "name": "Listar Modelos",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmc1IiwiaWF0IjoxNzc5MTA4Mzc3LCJleHAiOjE3NzkxMTE5Nzd9.F_siRgu0P1wCU0qI75bCiTv_BIw_yQOmlylZhE72pMUdC0dy8FRGkWXSv8DtsDZmFhn0gXv-mrFj3ce_sYb-fA",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8025/api/modelos",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8025",
+                      "path": [
+                        "api",
+                        "modelos"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Cadastrar Modelos",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmc1IiwiaWF0IjoxNzc5MTA4Mzc3LCJleHAiOjE3NzkxMTE5Nzd9.F_siRgu0P1wCU0qI75bCiTv_BIw_yQOmlylZhE72pMUdC0dy8FRGkWXSv8DtsDZmFhn0gXv-mrFj3ce_sYb-fA",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"descricao\": \"Carrão Muito Bão\",\r\n  \"categoria\": \"HATCH_COMPACTO\",\r\n  \"fabricanteId\": 1\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8025/api/modelos",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8025",
+                      "path": [
+                        "api",
+                        "modelos"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Acessorios",
+              "item": [
+                {
+                  "name": "Listar Acessórios",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmc1IiwiaWF0IjoxNzc4ODcwMzI4LCJleHAiOjE3Nzg4NzM5Mjh9.chpXHlU2e1THzldfSz4uuhj21ZuopNvznQlxtUdMsXjqepEhiOR89ceeLH4WSk_Imq7UFz9u-lnnTp1Td7uMTQ",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8025/api/acessorios",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8025",
+                      "path": [
+                        "api",
+                        "acessorios"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Cadastrar Acessórios",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"descricao\": \"Acessórios\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8025/api/acessorios",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8025",
+                      "path": [
+                        "api",
+                        "acessorios"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Fabricante",
+              "item": [
+                {
+                  "name": "Listar Fabricantes",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmc1IiwiaWF0IjoxNzc5MTA4Mzc3LCJleHAiOjE3NzkxMTE5Nzd9.F_siRgu0P1wCU0qI75bCiTv_BIw_yQOmlylZhE72pMUdC0dy8FRGkWXSv8DtsDZmFhn0gXv-mrFj3ce_sYb-fA",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8025/api/fabricantes",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8025",
+                      "path": [
+                        "api",
+                        "fabricantes"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Cadastrar Fabricantes",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"nome\": \"Fabricantium\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8025/api/fabricantes",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8025",
+                      "path": [
+                        "api",
+                        "fabricantes"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Pessoa com gateway",
+          "item": [
+            {
+              "name": "Usuario",
+              "item": [
+                {
+                  "name": "Cadastrar Usuario",
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"login\": \"string5\",\r\n  \"senha\": \"string5\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8025/api/auth",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8025",
+                      "path": [
+                        "api",
+                        "auth"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Autenticar Usuario",
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"login\": \"string5\",\r\n  \"senha\": \"string5\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8081/auth/autenticar",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8081",
+                      "path": [
+                        "auth",
+                        "autenticar"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Motorista",
+              "item": [
+                {
+                  "name": "Listar Motoristas",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmc1IiwiaWF0IjoxNzc5MTA4Mzc3LCJleHAiOjE3NzkxMTE5Nzd9.F_siRgu0P1wCU0qI75bCiTv_BIw_yQOmlylZhE72pMUdC0dy8FRGkWXSv8DtsDZmFhn0gXv-mrFj3ce_sYb-fA",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8025/api/motoristas",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8025",
+                      "path": [
+                        "api",
+                        "motoristas"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Buscar Motorista por Id",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmc1IiwiaWF0IjoxNzc5MTA4Mzc3LCJleHAiOjE3NzkxMTE5Nzd9.F_siRgu0P1wCU0qI75bCiTv_BIw_yQOmlylZhE72pMUdC0dy8FRGkWXSv8DtsDZmFhn0gXv-mrFj3ce_sYb-fA",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8025/api/motoristas/1",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8025",
+                      "path": [
+                        "api",
+                        "motoristas",
+                        "1"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Deletar Logicamente Motorista",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmczIiwiaWF0IjoxNzc4ODY3ODMzLCJleHAiOjE3Nzg4NzE0MzN9.u-ERNJJFA253aI2h2nVNulGZk86DISNPKsRlBk94p0KnAlCIi0A10OJYLUF_VzfmOTnQNRlh9zbEC2TGQoDm-w",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8025/api/motoristas/1",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8025",
+                      "path": [
+                        "api",
+                        "motoristas",
+                        "1"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Atualizar Motorista",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmczIiwiaWF0IjoxNzc4ODY3ODMzLCJleHAiOjE3Nzg4NzE0MzN9.u-ERNJJFA253aI2h2nVNulGZk86DISNPKsRlBk94p0KnAlCIi0A10OJYLUF_VzfmOTnQNRlh9zbEC2TGQoDm-w",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"nome\": \"string\",\r\n  \"dataNascimento\": \"2026-01-01\",\r\n  \"cpf\": \"stringstrin\",\r\n  \"email\": \"user@example.com\",\r\n  \"sexo\": \"MASCULINO\",\r\n  \"numeroCNH\": \"string\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8025/api/motoristas/1",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8025",
+                      "path": [
+                        "api",
+                        "motoristas",
+                        "1"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Cadastrar Motoristas",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmc1IiwiaWF0IjoxNzc5MTA4Mzc3LCJleHAiOjE3NzkxMTE5Nzd9.F_siRgu0P1wCU0qI75bCiTv_BIw_yQOmlylZhE72pMUdC0dy8FRGkWXSv8DtsDZmFhn0gXv-mrFj3ce_sYb-fA",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"nome\": \"string\",\r\n  \"dataNascimento\": \"2026-05-15\",\r\n  \"cpf\": \"stringstrin\",\r\n  \"email\": \"user@example.com\",\r\n  \"sexo\": \"MASCULINO\",\r\n  \"numeroCNH\": \"string\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8025/api/motoristas",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8025",
+                      "path": [
+                        "api",
+                        "motoristas"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Buscar Motorista por Cpf",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmczIiwiaWF0IjoxNzc4ODY3ODMzLCJleHAiOjE3Nzg4NzE0MzN9.u-ERNJJFA253aI2h2nVNulGZk86DISNPKsRlBk94p0KnAlCIi0A10OJYLUF_VzfmOTnQNRlh9zbEC2TGQoDm-w",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"nome\": \"string\",\r\n  \"dataNascimento\": \"2026-01-01\",\r\n  \"cpf\": \"stringstrin\",\r\n  \"email\": \"user@example.com\",\r\n  \"sexo\": \"MASCULINO\",\r\n  \"numeroCNH\": \"string\"\r\n}"
+                    },
+                    "url": {
+                      "raw": "http://localhost:8025/api/motoristas",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8025",
+                      "path": [
+                        "api",
+                        "motoristas"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Aluguel com gateway",
+          "item": [
+            {
+              "name": "Listar Alugueis",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmc1IiwiaWF0IjoxNzc5MTA4Mzc3LCJleHAiOjE3NzkxMTE5Nzd9.F_siRgu0P1wCU0qI75bCiTv_BIw_yQOmlylZhE72pMUdC0dy8FRGkWXSv8DtsDZmFhn0gXv-mrFj3ce_sYb-fA",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8025/api/alugueis",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8025",
+                  "path": [
+                    "api",
+                    "alugueis"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Buscar Aluguel por Id",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmczIiwiaWF0IjoxNzc4ODY3ODMzLCJleHAiOjE3Nzg4NzE0MzN9.u-ERNJJFA253aI2h2nVNulGZk86DISNPKsRlBk94p0KnAlCIi0A10OJYLUF_VzfmOTnQNRlh9zbEC2TGQoDm-w",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8025/api/alugueis/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8025",
+                  "path": [
+                    "api",
+                    "alugueis",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Buscar Aluguel por Motorista",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmczIiwiaWF0IjoxNzc4ODY3ODMzLCJleHAiOjE3Nzg4NzE0MzN9.u-ERNJJFA253aI2h2nVNulGZk86DISNPKsRlBk94p0KnAlCIi0A10OJYLUF_VzfmOTnQNRlh9zbEC2TGQoDm-w",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8025/api/alugueis/pessoa/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8025",
+                  "path": [
+                    "api",
+                    "alugueis",
+                    "pessoa",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Buscar Aluguel por Carro",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmczIiwiaWF0IjoxNzc4ODY3ODMzLCJleHAiOjE3Nzg4NzE0MzN9.u-ERNJJFA253aI2h2nVNulGZk86DISNPKsRlBk94p0KnAlCIi0A10OJYLUF_VzfmOTnQNRlh9zbEC2TGQoDm-w",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8025/api/alugueis/carro/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8025",
+                  "path": [
+                    "api",
+                    "alugueis",
+                    "carro",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Cadastrar Aluguel",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmc1IiwiaWF0IjoxNzc5MTA4Mzc3LCJleHAiOjE3NzkxMTE5Nzd9.F_siRgu0P1wCU0qI75bCiTv_BIw_yQOmlylZhE72pMUdC0dy8FRGkWXSv8DtsDZmFhn0gXv-mrFj3ce_sYb-fA",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"dataEntrega\": \"2026-05-15\",\r\n  \"dataDevolucao\": \"2026-05-15\",\r\n  \"apolice\": {\r\n    \"valorFranquia\": 1000,\r\n    \"protecaoTerceiro\": true,\r\n    \"protecaoCausasNaturais\": true,\r\n    \"protecaoRoubo\": true\r\n  },\r\n  \"motoristaId\": 1,\r\n  \"carroId\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8025/api/alugueis",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8025",
+                  "path": [
+                    "api",
+                    "alugueis"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

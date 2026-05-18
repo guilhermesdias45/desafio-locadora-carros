@@ -22,15 +22,14 @@ public class GatewayController {
             @PathVariable String service,
             @RequestHeader HttpHeaders headers,
             @RequestParam(required = false)MultiValueMap<String, String> queryParams,
-            @RequestBody(required = false) Mono<String> body,
+            @RequestBody(required = false) String body,
             ServerHttpRequest request
             ){
 
         String baseUrl = switch (service){
-            case "carros" -> "http://localhost:8080";
-            case "motoristas" -> "http://localhost:8081";
+            case "carros", "modelos", "fabricantes", "acessorios" -> "http://localhost:8080";
+            case "motoristas", "auth" -> "http://localhost:8081";
             case "alugueis" -> "http://localhost:8082";
-            case "auth" -> "http://localhost:8081";
             default -> null;
         };
 
@@ -45,8 +44,15 @@ public class GatewayController {
 
         return webClient.method(request.getMethod())
                 .uri(urlCompleta)
-                .headers(httpHeaders -> httpHeaders.addAll(headers))
-                .body(body == null ? Mono.empty() : body, String.class)
+                .headers(httpHeaders -> // httpHeaders.addAll(headers)
+                {
+                    headers.forEach((nome, valores) -> {
+                        if (!nome.equalsIgnoreCase("host") && !nome.equalsIgnoreCase("content-length")) {
+                            httpHeaders.addAll(nome, valores);
+                        }
+                    });
+                })
+                .bodyValue(body != null ? body : "")
                 .retrieve()
                 .toEntity(String.class);
     }

@@ -3,7 +3,7 @@ package school.sptech.pessoa.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public record UsuarioDto(
+public record UsuarioRequestDTO(
         @NotBlank
         String login,
         @NotBlank
