@@ -1,7 +1,6 @@
 package dto;
 
-public record PessoaMailDto(
-        Long id,
+public record MotoristaMailDto(
         String nome,
         String email
 ) {

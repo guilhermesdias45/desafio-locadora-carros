@@ -1,7 +1,8 @@
 package school.sptech.mail_sender.service;
 
+import dto.AluguelMailDto;
 import dto.MailWrapper;
-import dto.PessoaMailDto;
+import dto.MotoristaMailDto;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -29,11 +30,25 @@ public class MailService {
 
         switch (wrapper.tipo()) {
             case MailWrapper.Enum.ALUGUEL:
-
+                AluguelMailDto aluguel = objectMapper.convertValue(wrapper.data(), AluguelMailDto.class);
+                mailMessage.setTo(aluguel.motorista().email());
+                mailMessage.setSubject("Confirmção de Aluguel");
+                mailMessage.setText("""
+                        Olá, %s!
+                        
+                        Seu Aluguel foi realizado com sucesso.
+                        
+                        Informações do seu Alugel:
+                        %s
+                        
+                        Atenciosamente,
+                        Locadora Carros
+                        """.formatted(aluguel.motorista().nome(), aluguel));
                 break;
+
             case MailWrapper.Enum.CADASTRO:
-                PessoaMailDto pessoa = objectMapper.convertValue(wrapper.data(), PessoaMailDto.class);
-                mailMessage.setTo(pessoa.email());
+                MotoristaMailDto motorista = objectMapper.convertValue(wrapper.data(), MotoristaMailDto.class);
+                mailMessage.setTo(motorista.email());
                 mailMessage.setSubject("Confirmção de Cadastro");
                 mailMessage.setText("""
                         Olá, %s!
@@ -42,7 +57,7 @@ public class MailService {
                         
                         Atenciosamente,
                         Locadora Carros
-                        """.formatted(pessoa.nome()));
+                        """.formatted(motorista.nome()));
                 break;
 
             default:
@@ -50,9 +65,6 @@ public class MailService {
         }
 
         try {
-            //mailMessage.setTo("user@mail.com");
-            //mailMessage.setSubject("Teste de envio de email");
-            //mailMessage.setText("Mensagem recebida: " + message);
             mailSender.send(mailMessage);
         } catch (MailException e) {
             throw new RuntimeException("Erro ao enviar email: " + e.getMessage());
