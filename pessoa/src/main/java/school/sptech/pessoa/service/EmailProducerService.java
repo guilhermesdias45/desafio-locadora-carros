@@ -16,20 +16,11 @@ public class EmailProducerService {
     private final RabbitTemplate rabbitTemplate;
     private final ObjectMapper objectMapper;
 
-    @Value("${queue.name}")
-    private String queueName;
-
-    public void enviarDadosUsuario(String email, String nome, String tipoUsuario) {
+    public void enviarDadosUsuario(Object dadosUsuario) {
         try {
-            EmailDTO emailDTO = EmailDTO.builder()
-                    .destinatario(email)
-                    .nome(nome)
-                    .tipoUsuario(tipoUsuario)
-                    .build();
+            log.info("Enfileirando dados do usuário: {}");
 
-            log.info("Enfileirando dados do usuário: {}", email);
-
-            String jsonMessage = objectMapper.writeValueAsString(emailDTO);
+            String jsonMessage = objectMapper.writeValueAsString(dadosUsuario);
             rabbitTemplate.convertAndSend(queueName, jsonMessage);
 
             log.info("Dados enfileirados na fila: {}", queueName);
@@ -39,4 +30,7 @@ public class EmailProducerService {
             throw new RuntimeException("Erro ao enfileirar dados", e);
         }
     }
+
+    @Value("${queue.name}")
+    private String queueName;
 }

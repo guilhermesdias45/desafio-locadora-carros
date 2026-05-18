@@ -66,13 +66,9 @@ public class MotoristaService {
         Motorista motoristaSalvo = motoristaRepository.save(motorista);
 
         try {
-            emailProducerService.enviarDadosUsuario(
-                    motoristaSalvo.getEmail(),
-                    motoristaSalvo.getNome(),
-                    "MOTORISTA"
-            );
+            emailProducerService.enviarDadosUsuario(motoristaSalvo);
         } catch (Exception e) {
-            log.warn("Erro ao enfileirar email: {}", e.getMessage());
+            log.warn("Erro ao enfileirar dados do motorista: {}", e.getMessage());
         }
 
         return motoristaMapper.toResponseDTO(motoristaSalvo);

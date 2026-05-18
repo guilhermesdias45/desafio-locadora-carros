@@ -1,4 +1,4 @@
-package school.sptech.mail_sender;
+package school.sptech.mail_sender.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
