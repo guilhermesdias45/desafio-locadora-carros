@@ -1,10 +1,7 @@
 package school.sptech.pessoa.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import school.sptech.pessoa.dto.MotoristaRequestDTO;
@@ -16,14 +13,15 @@ import school.sptech.pessoa.model.Motorista;
 import school.sptech.pessoa.repository.MotoristaRepository;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MotoristaService {
 
     private final MotoristaRepository motoristaRepository;
     private final MotoristaMapper motoristaMapper;
+    private final EmailProducerService emailProducerService;
 
     public List<MotoristaResponseDTO> listarTodos() {
         return motoristaRepository.findAllByAtivoTrue()
@@ -65,7 +63,19 @@ public class MotoristaService {
         }
 
         Motorista motorista = motoristaMapper.toEntity(dto);
-        return motoristaMapper.toResponseDTO(motoristaRepository.save(motorista));
+        Motorista motoristaSalvo = motoristaRepository.save(motorista);
+
+        try {
+            emailProducerService.enviarDadosUsuario(
+                    motoristaSalvo.getEmail(),
+                    motoristaSalvo.getNome(),
+                    "MOTORISTA"
+            );
+        } catch (Exception e) {
+            log.warn("Erro ao enfileirar email: {}", e.getMessage());
+        }
+
+        return motoristaMapper.toResponseDTO(motoristaSalvo);
     }
 
     @Transactional
