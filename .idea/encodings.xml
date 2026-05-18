@@ -6,6 +6,9 @@
     <file url="file://$PROJECT_DIR$/api-gateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/carro/carro/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/carro/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mail-dto-shared/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mail-dto-shared/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mail-sender/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pessoa/pessoa/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pessoa/src/main/java" charset="UTF-8" />
   </component>
