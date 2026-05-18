@@ -2,7 +2,7 @@ package school.sptech.pessoa.service;
 
 import lombok.RequiredArgsConstructor;
 import school.sptech.pessoa.dto.TokenResponseDTO;
-import school.sptech.pessoa.dto.UsuarioDto;
+import school.sptech.pessoa.dto.UsuarioRequestDTO;
 import school.sptech.pessoa.exception.ResourceNotFoundException;
 import school.sptech.pessoa.mapper.UsuarioMapper;
 import school.sptech.pessoa.model.Usuario;
@@ -19,14 +19,14 @@ public class UsuarioService {
     private final JwtService jwtService;
 
 
-    public Usuario salvar(UsuarioDto dto) {
+    public Usuario salvar(UsuarioRequestDTO dto) {
         Usuario usuario = new Usuario();
         usuario.setLogin(dto.login());
         usuario.setSenha(passwordEncoder.encode(dto.senha()));
         return repository.save(usuario);
     }
 
-    public TokenResponseDTO autenticar(UsuarioDto dto) {
+    public TokenResponseDTO autenticar(UsuarioRequestDTO dto) {
         Usuario user = repository.findByLogin(dto.login()).orElseThrow(
                 () -> new ResourceNotFoundException("Login inexistente.")
         );
