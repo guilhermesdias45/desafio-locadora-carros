@@ -10,11 +10,11 @@ public class FuncionarioMapper {
 
     public Funcionario toEntity(FuncionarioRequestDTO dto) {
         Funcionario funcionario = new Funcionario();
-        funcionario.setNome(dto.nome());
-        funcionario.setDataNascimento(dto.dataNascimento());
-        funcionario.setCpf(dto.cpf());
-        funcionario.setEmail(dto.email());
-        funcionario.setSexo(dto.sexo());
+        funcionario.setNome(dto.pessoa().nome());
+        funcionario.setDataNascimento(dto.pessoa().dataNascimento());
+        funcionario.setCpf(dto.pessoa().cpf());
+        funcionario.setEmail(dto.pessoa().email());
+        funcionario.setSexo(dto.pessoa().sexo());
         funcionario.setMatricula(dto.matricula());
         funcionario.setAtivo(true);
         return funcionario;
@@ -34,11 +34,11 @@ public class FuncionarioMapper {
     }
 
     public void updateEntityFromDTO(FuncionarioRequestDTO dto, Funcionario funcionario) {
-        funcionario.setNome(dto.nome());
-        funcionario.setDataNascimento(dto.dataNascimento());
-        funcionario.setCpf(dto.cpf());
-        funcionario.setEmail(dto.email());
-        funcionario.setSexo(dto.sexo());
+        funcionario.setNome(dto.pessoa().nome());
+        funcionario.setDataNascimento(dto.pessoa().dataNascimento());
+        funcionario.setCpf(dto.pessoa().cpf());
+        funcionario.setEmail(dto.pessoa().email());
+        funcionario.setSexo(dto.pessoa().sexo());
         funcionario.setMatricula(dto.matricula());
     }
 }

@@ -7,6 +7,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import school.sptech.pessoa.dto.EmailDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import school.sptech.pessoa.model.Motorista;
+import school.sptech.pessoa.model.Usuario;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -16,15 +21,19 @@ public class EmailProducerService {
     private final RabbitTemplate rabbitTemplate;
     private final ObjectMapper objectMapper;
 
-    public void enviarDadosUsuario(Object dadosUsuario) {
+    public void enviarDadosMotorista(Motorista motorista, Usuario usuario) {
         try {
-            log.info("Enfileirando dados do usuário: {}");
+            Map<String, Object> payload = new HashMap<>();
+            payload.put("motorista", motorista);
+            payload.put("funcionario", usuario.getFuncionario());
+            payload.put("matricula", usuario.getMatricula());
 
-            String jsonMessage = objectMapper.writeValueAsString(dadosUsuario);
+            log.info("Enfileirando dados do motorista: {}", motorista.getEmail());
+
+            String jsonMessage = objectMapper.writeValueAsString(payload);
             rabbitTemplate.convertAndSend(queueName, jsonMessage);
 
             log.info("Dados enfileirados na fila: {}", queueName);
-
         } catch (Exception e) {
             log.error("Erro ao enfileirar: {}", e.getMessage(), e);
             throw new RuntimeException("Erro ao enfileirar dados", e);

@@ -10,11 +10,11 @@ public class MotoristaMapper {
 
     public Motorista toEntity(MotoristaRequestDTO dto) {
         Motorista motorista = new Motorista();
-        motorista.setNome(dto.nome());
-        motorista.setDataNascimento(dto.dataNascimento());
-        motorista.setCpf(dto.cpf());
-        motorista.setEmail(dto.email());
-        motorista.setSexo(dto.sexo());
+        motorista.setNome(dto.pessoa().nome());
+        motorista.setDataNascimento(dto.pessoa().dataNascimento());
+        motorista.setCpf(dto.pessoa().cpf());
+        motorista.setEmail(dto.pessoa().email());
+        motorista.setSexo(dto.pessoa().sexo());
         motorista.setNumeroCNH(dto.numeroCNH());
         motorista.setAtivo(true);
         return motorista;
@@ -34,11 +34,11 @@ public class MotoristaMapper {
     }
 
     public void updateEntityFromDTO(MotoristaRequestDTO dto, Motorista motorista) {
-        motorista.setNome(dto.nome());
-        motorista.setDataNascimento(dto.dataNascimento());
-        motorista.setCpf(dto.cpf());
-        motorista.setEmail(dto.email());
-        motorista.setSexo(dto.sexo());
+        motorista.setNome(dto.pessoa().nome());
+        motorista.setDataNascimento(dto.pessoa().dataNascimento());
+        motorista.setCpf(dto.pessoa().cpf());
+        motorista.setEmail(dto.pessoa().email());
+        motorista.setSexo(dto.pessoa().sexo());
         motorista.setNumeroCNH(dto.numeroCNH());
     }
 }

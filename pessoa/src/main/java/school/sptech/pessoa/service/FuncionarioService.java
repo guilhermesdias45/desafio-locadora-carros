@@ -13,6 +13,8 @@ import school.sptech.pessoa.mapper.FuncionarioMapper;
 import school.sptech.pessoa.model.Funcionario;
 import school.sptech.pessoa.repository.FuncionarioRepository;
 
+import java.time.LocalDate;
+
 @Service
 @RequiredArgsConstructor
 public class FuncionarioService {
@@ -46,15 +48,18 @@ public class FuncionarioService {
 
     @Transactional
     public FuncionarioResponseDTO criar(FuncionarioRequestDTO dto) {
-        if (funcionarioRepository.existsByCpfAndAtivoTrue(dto.cpf())) {
-            throw new BusinessException("Já existe um funcionário com o CPF: " + dto.cpf());
+        if (dto.pessoa().dataNascimento().isAfter(LocalDate.now().minusYears(18))) {
+            throw new BusinessException("Funcionário deve ter 18 anos ou mais.");
+        }
+
+        if (funcionarioRepository.existsByCpfAndAtivoTrue(dto.pessoa().cpf())) {
+            throw new BusinessException("Já existe um funcionário com o CPF: " + dto.pessoa().cpf());
         }
         if (funcionarioRepository.existsByMatriculaAndAtivoTrue(dto.matricula())) {
             throw new BusinessException("Já existe um funcionário com a matrícula: " + dto.matricula());
         }
-
-        if (funcionarioRepository.existsByEmailAndAtivoTrue(dto.email())) {
-            throw new BusinessException("Já existe um funcionário com o email: " + dto.email());
+        if (funcionarioRepository.existsByEmailAndAtivoTrue(dto.pessoa().email())) {
+            throw new BusinessException("Já existe um funcionário com o email: " + dto.pessoa().email());
         }
 
         Funcionario funcionario = funcionarioMapper.toEntity(dto);
@@ -67,14 +72,14 @@ public class FuncionarioService {
                 .filter(Funcionario::getAtivo)
                 .orElseThrow(() -> new ResourceNotFoundException("Funcionário não encontrado com id: " + id));
 
-        if (!funcionario.getCpf().equals(dto.cpf()) && funcionarioRepository.existsByCpfAndAtivoTrue(dto.cpf())) {
-            throw new BusinessException("Já existe um funcionário com o CPF: " + dto.cpf());
+        if (!funcionario.getCpf().equals(dto.pessoa().cpf()) && funcionarioRepository.existsByCpfAndAtivoTrue(dto.pessoa().cpf())) {
+            throw new BusinessException("Já existe um funcionário com o CPF: " + dto.pessoa().cpf());
         }
         if (!funcionario.getMatricula().equals(dto.matricula()) && funcionarioRepository.existsByMatriculaAndAtivoTrue(dto.matricula())) {
             throw new BusinessException("Já existe um funcionário com a matrícula: " + dto.matricula());
         }
-        if (!funcionario.getEmail().equals(dto.email()) && funcionarioRepository.existsByEmailAndAtivoTrue(dto.email())) {
-            throw new BusinessException("Já existe um funcionário com o email: " + dto.email());
+        if (!funcionario.getEmail().equals(dto.pessoa().email()) && funcionarioRepository.existsByEmailAndAtivoTrue(dto.pessoa().email())) {
+            throw new BusinessException("Já existe um funcionário com o email: " + dto.pessoa().email());
         }
 
         funcionarioMapper.updateEntityFromDTO(dto, funcionario);

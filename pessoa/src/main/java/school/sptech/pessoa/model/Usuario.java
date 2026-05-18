@@ -17,10 +17,17 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotBlank
     @Column(unique = true)
     private String login;
+
     @NotBlank
     @Size(min = 5)
     private String senha;
+
+    @Column(nullable = false)
+    private Boolean funcionario = false;
+
+    private String matricula;
 }
