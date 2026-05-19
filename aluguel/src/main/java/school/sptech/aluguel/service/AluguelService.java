@@ -13,6 +13,7 @@ import school.sptech.aluguel.repository.AluguelRepository;
 import school.sptech.aluguel.repository.ApoliceRepository;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -79,7 +80,7 @@ public class AluguelService {
         BigDecimal valorTotal = carro.valorDiaria().multiply(BigDecimal.valueOf(dias));
 
         aluguel.setValorTotal(aluguel.getApolice().getValorFranquia().add(valorTotal));
-        aluguel.setDataPedido(LocalDateTime.now());
+        aluguel.setDataPedido(LocalDate.now());
 
         apoliceRepository.save(aluguel.getApolice());
         Aluguel aluguelRetorno = repository.save(aluguel);

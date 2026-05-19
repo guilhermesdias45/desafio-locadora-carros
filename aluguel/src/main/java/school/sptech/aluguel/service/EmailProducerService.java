@@ -1,12 +1,12 @@
 package school.sptech.aluguel.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
+import dto.MailWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import school.sptech.aluguel.dto.EmailDTO;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +23,9 @@ public class EmailProducerService {
         try {
             log.info("Enfileirando dados do usuário: {}");
 
-            String jsonMessage = objectMapper.writeValueAsString(dadosAluguel);
+            MailWrapper wrapper = new MailWrapper(MailWrapper.Enum.ALUGUEL, dadosAluguel);
+
+            String jsonMessage = objectMapper.writeValueAsString(wrapper);
             rabbitTemplate.convertAndSend(queueName, jsonMessage);
 
             log.info("Dados enfileirados na fila: {}", queueName);
