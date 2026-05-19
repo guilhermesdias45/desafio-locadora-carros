@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record AluguelMailDto(
-        LocalDateTime dataPedido,
+        LocalDate dataPedido,
         LocalDate dataEntrega,
         LocalDate dataDevolucao,
         BigDecimal valorTotal,

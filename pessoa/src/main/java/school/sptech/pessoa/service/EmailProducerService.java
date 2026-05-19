@@ -1,5 +1,6 @@
 package school.sptech.pessoa.service;
 
+import dto.MailWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -30,7 +31,10 @@ public class EmailProducerService {
 
             log.info("Enfileirando dados do motorista: {}", motorista.getEmail());
 
-            String jsonMessage = objectMapper.writeValueAsString(payload);
+            MailWrapper mailWrapper = new MailWrapper(MailWrapper.Enum.CADASTRO, payload);
+
+            String jsonMessage = objectMapper.writeValueAsString(mailWrapper);
+
             rabbitTemplate.convertAndSend(queueName, jsonMessage);
 
             log.info("Dados enfileirados na fila: {}", queueName);
