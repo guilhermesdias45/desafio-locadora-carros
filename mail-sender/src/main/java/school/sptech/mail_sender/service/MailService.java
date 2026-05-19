@@ -31,7 +31,7 @@ public class MailService {
         switch (wrapper.tipo()) {
             case MailWrapper.Enum.ALUGUEL:
                 AluguelMailDto aluguel = objectMapper.convertValue(wrapper.data(), AluguelMailDto.class);
-                mailMessage.setTo(aluguel.motorista().email());
+                mailMessage.setTo(aluguel.motorista().usuario().email());
                 mailMessage.setSubject("Confirmção de Aluguel");
                 mailMessage.setText("""
                         Olá, %s!
@@ -43,12 +43,30 @@ public class MailService {
                         
                         Atenciosamente,
                         Locadora Carros
-                        """.formatted(aluguel.motorista().nome(), aluguel));
+                        """.formatted(aluguel.motorista().usuario().nome(), aluguel));
                 break;
 
             case MailWrapper.Enum.CADASTRO:
                 MotoristaMailDto motorista = objectMapper.convertValue(wrapper.data(), MotoristaMailDto.class);
-                mailMessage.setTo(motorista.email());
+
+                if (motorista.funcionario()) {
+                    mailMessage.setTo(motorista.usuario().email());
+                    mailMessage.setSubject("Confirmção de Cadastro de Funcionário");
+                    mailMessage.setText("""
+                        Olá, %s!
+                        
+                        Seu cadastro de funcionário foi realizado com sucesso.
+                        Matrícula: %s
+                        
+                        
+                        Atenciosamente,
+                        Locadora Carros
+                        """.formatted(motorista.usuario().nome(),
+                            motorista.matricula().isBlank() ? "N/A" : motorista.matricula()));
+                    break;
+                }
+
+                mailMessage.setTo(motorista.usuario().email());
                 mailMessage.setSubject("Confirmção de Cadastro");
                 mailMessage.setText("""
                         Olá, %s!
@@ -57,7 +75,7 @@ public class MailService {
                         
                         Atenciosamente,
                         Locadora Carros
-                        """.formatted(motorista.nome()));
+                        """.formatted(motorista.usuario().nome()));
                 break;
 
             default:
