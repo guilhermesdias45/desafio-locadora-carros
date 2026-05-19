@@ -2,6 +2,7 @@ package school.sptech.pessoa.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import school.sptech.pessoa.dto.MotoristaRequestDTO;
@@ -10,8 +11,11 @@ import school.sptech.pessoa.exception.BusinessException;
 import school.sptech.pessoa.exception.ResourceNotFoundException;
 import school.sptech.pessoa.mapper.MotoristaMapper;
 import school.sptech.pessoa.model.Motorista;
+import school.sptech.pessoa.model.Usuario;
 import school.sptech.pessoa.repository.MotoristaRepository;
+import school.sptech.pessoa.repository.UsuarioRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -22,6 +26,7 @@ public class MotoristaService {
     private final MotoristaRepository motoristaRepository;
     private final MotoristaMapper motoristaMapper;
     private final EmailProducerService emailProducerService;
+    private final UsuarioRepository usuarioRepository;
 
     public List<MotoristaResponseDTO> listarTodos() {
         return motoristaRepository.findAllByAtivoTrue()
@@ -51,22 +56,30 @@ public class MotoristaService {
 
     @Transactional
     public MotoristaResponseDTO criar(MotoristaRequestDTO dto) {
-        if (motoristaRepository.existsByCpfAndAtivoTrue(dto.cpf())) {
-            throw new BusinessException("Já existe um motorista com o CPF: " + dto.cpf());
+        if (dto.pessoa().dataNascimento().isAfter(LocalDate.now().minusYears(18))) {
+            throw new BusinessException("Motorista deve ter 18 anos ou mais.");
+        }
+        if (motoristaRepository.existsByCpfAndAtivoTrue(dto.pessoa().cpf())) {
+            throw new BusinessException("Já existe um motorista com o CPF: " + dto.pessoa().cpf());
         }
         if (motoristaRepository.existsByNumeroCNHAndAtivoTrue(dto.numeroCNH())) {
             throw new BusinessException("Já existe um motorista com a CNH: " + dto.numeroCNH());
         }
-
-        if (motoristaRepository.existsByEmailAndAtivoTrue(dto.email())) {
-            throw new BusinessException("Já existe um motorista com o email: " + dto.email());
+        if (motoristaRepository.existsByEmailAndAtivoTrue(dto.pessoa().email())) {
+            throw new BusinessException("Já existe um motorista com o email: " + dto.pessoa().email());
         }
 
-        Motorista motorista = motoristaMapper.toEntity(dto);
-        Motorista motoristaSalvo = motoristaRepository.save(motorista);
+        Motorista motoristaSalvo = motoristaRepository.save(motoristaMapper.toEntity(dto));
+
+        String loginAutenticado = SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getName();
+
+        Usuario usuarioAutenticado = usuarioRepository.findByLogin(loginAutenticado)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário autenticado não encontrado."));
 
         try {
-            emailProducerService.enviarDadosUsuario(motoristaSalvo);
+            emailProducerService.enviarDadosMotorista(motoristaSalvo, usuarioAutenticado);
         } catch (Exception e) {
             log.warn("Erro ao enfileirar dados do motorista: {}", e.getMessage());
         }
@@ -80,14 +93,17 @@ public class MotoristaService {
                 .filter(Motorista::getAtivo)
                 .orElseThrow(() -> new ResourceNotFoundException("Motorista não encontrado com id: " + id));
 
-        if (!motorista.getCpf().equals(dto.cpf()) && motoristaRepository.existsByCpfAndAtivoTrue(dto.cpf())) {
-            throw new BusinessException("Já existe um motorista com o CPF: " + dto.cpf());
+        if (dto.pessoa().dataNascimento().isAfter(LocalDate.now().minusYears(18))) {
+            throw new BusinessException("Motorista deve ter 18 anos ou mais.");
+        }
+        if (!motorista.getCpf().equals(dto.pessoa().cpf()) && motoristaRepository.existsByCpfAndAtivoTrue(dto.pessoa().cpf())) {
+            throw new BusinessException("Já existe um motorista com o CPF: " + dto.pessoa().cpf());
         }
         if (!motorista.getNumeroCNH().equals(dto.numeroCNH()) && motoristaRepository.existsByNumeroCNHAndAtivoTrue(dto.numeroCNH())) {
             throw new BusinessException("Já existe um motorista com a CNH: " + dto.numeroCNH());
         }
-        if (!motorista.getEmail().equals(dto.email()) && motoristaRepository.existsByEmailAndAtivoTrue(dto.email())) {
-            throw new BusinessException("Já existe um motorista com o email: " + dto.email());
+        if (!motorista.getEmail().equals(dto.pessoa().email()) && motoristaRepository.existsByEmailAndAtivoTrue(dto.pessoa().email())) {
+            throw new BusinessException("Já existe um motorista com o email: " + dto.pessoa().email());
         }
 
         motoristaMapper.updateEntityFromDTO(dto, motorista);

@@ -1,10 +1,11 @@
 package school.sptech.aluguel.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import school.sptech.aluguel.dto.AluguelCompletoRequestDTO;
 import school.sptech.aluguel.dto.AluguelRequestDTO;
-import school.sptech.aluguel.dto.CarroRequestDTO;
-import school.sptech.aluguel.dto.MotoristaRequestDTO;
+import school.sptech.aluguel.exception.EntidadeConflitoException;
 import school.sptech.aluguel.exception.EntidadeNaoEncontradaException;
 import school.sptech.aluguel.mapper.AluguelMapper;
 import school.sptech.aluguel.model.Aluguel;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Slf4j
 public class AluguelService {
     private final AluguelRepository repository;
 
@@ -25,34 +27,48 @@ public class AluguelService {
 
     public final WebClient carroWebClient;
 
-    public AluguelService(AluguelRepository repository, ApoliceRepository apoliceRepository, WebClient.Builder webClientBuilder) {
+    private final EmailProducerService emailProducerService;
+
+    public AluguelService(AluguelRepository repository, ApoliceRepository apoliceRepository, WebClient.Builder webClientBuilder, EmailProducerService emailProducerService) {
         this.repository = repository;
         this.apoliceRepository = apoliceRepository;
-        this.motoristaWebClient = webClientBuilder.baseUrl("http://localhost:8081").build();
-        this.carroWebClient = webClientBuilder.baseUrl("http://localhost:8080").build();
+        this.motoristaWebClient = webClientBuilder.clone().baseUrl("http://localhost:8081").build();
+        this.carroWebClient = webClientBuilder.clone().baseUrl("http://localhost:8080").build();
+        this.emailProducerService = emailProducerService;
     }
 
     public List<Aluguel> listarTodos(){
         return repository.findAll();
     }
 
-    public Aluguel salvar(AluguelRequestDTO dto, String token){
+    public Aluguel salvar(AluguelRequestDTO dto){
+        jakarta.servlet.http.HttpServletRequest currentRequest =
+                ((org.springframework.web.context.request.ServletRequestAttributes)
+                        org.springframework.web.context.request.RequestContextHolder.currentRequestAttributes()).getRequest();
+        String tokenOriginal = currentRequest.getHeader(org.springframework.http.HttpHeaders.AUTHORIZATION);
+
         Aluguel aluguel = AluguelMapper.toEntity(dto);
 
-        MotoristaRequestDTO motorista = motoristaWebClient.get()
-                .uri("/motoristas/{id}", aluguel.getMotoristaId()).header("Authorization", "Bearer " + token)
+        AluguelCompletoRequestDTO.MotoristaRequestDTO motorista = motoristaWebClient.get()
+                .uri("/motoristas/{id}", aluguel.getMotoristaId())
                 .retrieve()
-                .bodyToMono(MotoristaRequestDTO.class)
+                .bodyToMono(AluguelCompletoRequestDTO.MotoristaRequestDTO.class)
+                .contextWrite(context -> context.put("AUTH_TOKEN", tokenOriginal))
                 .block();
 
         if (motorista == null) {
             throw new EntidadeNaoEncontradaException("Motorista não encontrado no microsserviço Pessoa");
         }
 
-        CarroRequestDTO carro = carroWebClient.get()
+        if (repository.existsByCarroIdAndDataEntregaLessThanEqualAndDataDevolucaoGreaterThanEqual(dto.carroId(), aluguel.getDataDevolucao(), aluguel.getDataEntrega())){
+            throw new EntidadeConflitoException("Carro escolhido já está alugado nesse período, escolha outro período ou outro carro.");
+        }
+
+        AluguelCompletoRequestDTO.CarroRequestDTO carro = carroWebClient.get()
                 .uri("/carros/{id}", aluguel.getCarroId())
                 .retrieve()
-                .bodyToMono(CarroRequestDTO.class)
+                .bodyToMono(AluguelCompletoRequestDTO.CarroRequestDTO.class)
+                .contextWrite(context -> context.put("AUTH_TOKEN", tokenOriginal))
                 .block();
 
         if (carro == null) {
@@ -60,13 +76,24 @@ public class AluguelService {
         }
 
         long dias = java.time.temporal.ChronoUnit.DAYS.between(aluguel.getDataEntrega(), aluguel.getDataDevolucao());
-        BigDecimal valorDiarias = carro.valorDiaria().multiply(BigDecimal.valueOf(dias));
+        BigDecimal valorTotal = carro.valorDiaria().multiply(BigDecimal.valueOf(dias));
 
-        aluguel.setValorTotal(aluguel.getApolice().getValorFranquia().add(valorDiarias));
+        aluguel.setValorTotal(aluguel.getApolice().getValorFranquia().add(valorTotal));
         aluguel.setDataPedido(LocalDateTime.now());
 
         apoliceRepository.save(aluguel.getApolice());
-        return repository.save(aluguel);
+        Aluguel aluguelRetorno = repository.save(aluguel);
+
+        AluguelCompletoRequestDTO aluguelSalvo = AluguelMapper
+                .toAluguelCompletoDto(aluguelRetorno);
+
+        try {
+            emailProducerService.enviarDadosAluguel(aluguelSalvo);
+        } catch (Exception e) {
+            log.warn("Erro ao enfileirar email: {}", e.getMessage());
+        }
+
+        return aluguelRetorno;
     }
 
     public Aluguel buscarPorId(Long id){
