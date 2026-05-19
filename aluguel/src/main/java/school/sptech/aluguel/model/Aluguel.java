@@ -20,7 +20,7 @@ public class Aluguel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime dataPedido;
+    private LocalDate dataPedido;
     private LocalDate dataEntrega;
     private LocalDate dataDevolucao;
     private BigDecimal valorTotal;
