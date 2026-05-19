@@ -32,8 +32,8 @@ public class AluguelService {
     public AluguelService(AluguelRepository repository, ApoliceRepository apoliceRepository, WebClient.Builder webClientBuilder, EmailProducerService emailProducerService) {
         this.repository = repository;
         this.apoliceRepository = apoliceRepository;
-        this.motoristaWebClient = webClientBuilder.baseUrl("http://localhost:8081").build();
-        this.carroWebClient = webClientBuilder.baseUrl("http://localhost:8080").build();
+        this.motoristaWebClient = webClientBuilder.clone().baseUrl("http://localhost:8081").build();
+        this.carroWebClient = webClientBuilder.clone().baseUrl("http://localhost:8080").build();
         this.emailProducerService = emailProducerService;
     }
 
@@ -42,12 +42,18 @@ public class AluguelService {
     }
 
     public Aluguel salvar(AluguelRequestDTO dto){
+        jakarta.servlet.http.HttpServletRequest currentRequest =
+                ((org.springframework.web.context.request.ServletRequestAttributes)
+                        org.springframework.web.context.request.RequestContextHolder.currentRequestAttributes()).getRequest();
+        String tokenOriginal = currentRequest.getHeader(org.springframework.http.HttpHeaders.AUTHORIZATION);
+
         Aluguel aluguel = AluguelMapper.toEntity(dto);
 
         AluguelCompletoRequestDTO.MotoristaRequestDTO motorista = motoristaWebClient.get()
                 .uri("/motoristas/{id}", aluguel.getMotoristaId())
                 .retrieve()
                 .bodyToMono(AluguelCompletoRequestDTO.MotoristaRequestDTO.class)
+                .contextWrite(context -> context.put("AUTH_TOKEN", tokenOriginal))
                 .block();
 
         if (motorista == null) {
@@ -62,6 +68,7 @@ public class AluguelService {
                 .uri("/carros/{id}", aluguel.getCarroId())
                 .retrieve()
                 .bodyToMono(AluguelCompletoRequestDTO.CarroRequestDTO.class)
+                .contextWrite(context -> context.put("AUTH_TOKEN", tokenOriginal))
                 .block();
 
         if (carro == null) {

@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
-public record UsuarioRequestDTO(
+public record   UsuarioRequestDTO(
         @NotBlank String login,
         @NotBlank @Size(min = 5) String senha
 ) {}
