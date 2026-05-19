@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/acessorios")
+@CrossOrigin(originPatterns = "*", allowedHeaders = "*")
 public class AcessorioController {
 
     private final AcessorioService acessorioService;

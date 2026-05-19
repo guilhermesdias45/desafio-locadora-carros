@@ -10,6 +10,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(originPatterns = "*", allowedHeaders = "*")
 public class GatewayController {
     private final WebClient webClient;
 

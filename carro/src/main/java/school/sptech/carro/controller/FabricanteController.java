@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/fabricantes")
+@CrossOrigin(originPatterns = "*", allowedHeaders = "*")
 public class FabricanteController {
 
     private final FabricanteService fabricanteService;

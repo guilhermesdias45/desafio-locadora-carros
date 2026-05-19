@@ -55,7 +55,11 @@ public class AluguelMapper {
         return alugueis.stream().map(AluguelMapper::toDto).toList();
     }
 
-    public static AluguelCompletoRequestDTO toAluguelCompletoDto(Aluguel aluguel){
+    public static AluguelCompletoRequestDTO toAluguelCompletoDto(
+            Aluguel aluguel,
+            AluguelCompletoRequestDTO.MotoristaRequestDTO motoristaDTO,
+            AluguelCompletoRequestDTO.CarroRequestDTO carroDTO
+    ){
         if (aluguel == null){
             return null;
         }
@@ -66,22 +70,8 @@ public class AluguelMapper {
                 aluguel.getDataDevolucao(),
                 aluguel.getValorTotal(),
                 aluguel.getApolice(),
-                new AluguelCompletoRequestDTO.MotoristaRequestDTO(
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null
-                ),
-                new AluguelCompletoRequestDTO.CarroRequestDTO(
-                        null,
-                        null,
-                        null,
-                        null,
-                        null)
+                motoristaDTO,
+                carroDTO
         );
     }
 }

@@ -19,6 +19,7 @@ import java.util.List;
 @RequestMapping("/motoristas")
 @RequiredArgsConstructor
 @Tag(name = "Motoristas", description = "Gerenciamento de motoristas da locadora")
+@CrossOrigin(originPatterns = "*", allowedHeaders = "*")
 public class MotoristaController {
 
     private final MotoristaService motoristaService;

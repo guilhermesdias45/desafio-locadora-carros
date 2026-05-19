@@ -17,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/carros")
+@CrossOrigin(originPatterns = "*", allowedHeaders = "*")
 public class CarroController {
 
     private final CarroService carroService;

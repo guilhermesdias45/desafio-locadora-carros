@@ -9,6 +9,7 @@ import tools.jackson.databind.ObjectMapper;
 // classe para TESTES
 // TODO remover classe
 @RestController
+@CrossOrigin(originPatterns = "*", allowedHeaders = "*")
 public class TestController {
 
     MailService emailService;

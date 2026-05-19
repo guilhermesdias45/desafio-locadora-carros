@@ -14,6 +14,7 @@ import school.sptech.pessoa.service.UsuarioService;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@CrossOrigin(originPatterns = "*", allowedHeaders = "*")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;

@@ -85,7 +85,11 @@ public class AluguelService {
         Aluguel aluguelRetorno = repository.save(aluguel);
 
         AluguelCompletoRequestDTO aluguelSalvo = AluguelMapper
-                .toAluguelCompletoDto(aluguelRetorno);
+                .toAluguelCompletoDto(
+                        aluguelRetorno,
+                        motorista,
+                        carro
+                );
 
         try {
             emailProducerService.enviarDadosAluguel(aluguelSalvo);
