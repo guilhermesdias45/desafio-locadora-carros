@@ -70,8 +70,22 @@ public class AluguelMapper {
                 aluguel.getDataDevolucao(),
                 aluguel.getValorTotal(),
                 aluguel.getApolice(),
-                motoristaDTO,
-                carroDTO
+                new AluguelCompletoRequestDTO.MotoristaRequestDTO(
+                        motoristaDTO.id(),
+                        motoristaDTO.nome(),
+                        motoristaDTO.dataNascimento(),
+                        motoristaDTO.cpf(),
+                        motoristaDTO.email(),
+                        motoristaDTO.sexo(),
+                        motoristaDTO.ativo(),
+                        motoristaDTO.numeroCNH()
+                ),
+                new AluguelCompletoRequestDTO.CarroRequestDTO(
+                        carroDTO.id(),
+                        carroDTO.placa(),
+                        carroDTO.chassi(),
+                        carroDTO.cor(),
+                        carroDTO.valorDiaria())
         );
     }
 }
