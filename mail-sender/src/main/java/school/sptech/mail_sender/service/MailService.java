@@ -31,7 +31,7 @@ public class MailService {
         switch (wrapper.tipo()) {
             case MailWrapper.Enum.ALUGUEL:
                 AluguelMailDto aluguel = objectMapper.convertValue(wrapper.data(), AluguelMailDto.class);
-                mailMessage.setTo(aluguel.motorista().usuario().email());
+                mailMessage.setTo(aluguel.motorista().email());
                 mailMessage.setSubject("Confirmção de Aluguel");
                 mailMessage.setText("""
                         Olá, %s!
@@ -43,7 +43,7 @@ public class MailService {
                         
                         Atenciosamente,
                         Locadora Carros
-                        """.formatted(aluguel.motorista().usuario().nome(), aluguel));
+                        """.formatted(aluguel.motorista().nome(), aluguel));
                 break;
 
             case MailWrapper.Enum.CADASTRO:
