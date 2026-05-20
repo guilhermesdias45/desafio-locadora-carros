@@ -6,6 +6,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -45,8 +46,7 @@ public class GatewayController {
 
         return webClient.method(request.getMethod())
                 .uri(urlCompleta)
-                .headers(httpHeaders -> // httpHeaders.addAll(headers)
-                {
+                .headers(httpHeaders -> {
                     headers.forEach((nome, valores) -> {
                         if (!nome.equalsIgnoreCase("host") && !nome.equalsIgnoreCase("content-length")) {
                             httpHeaders.addAll(nome, valores);
@@ -55,6 +55,17 @@ public class GatewayController {
                 })
                 .bodyValue(body != null ? body : "")
                 .retrieve()
-                .toEntity(String.class);
+                .toEntity(String.class).
+                onErrorResume(WebClientResponseException.class, ex -> {
+                    return Mono.just(ResponseEntity.status(ex.getStatusCode())
+                            .headers(ex.getHeaders())
+                            .body(ex.getResponseBodyAsString())
+                    );
+                })
+                .onErrorResume(Exception.class, ex -> {
+                    return Mono.just(ResponseEntity.status(502)
+                            .body("Erro ao comunicar com o serviço interno: " + ex.getMessage())
+                    );
+                });
     }
 }
