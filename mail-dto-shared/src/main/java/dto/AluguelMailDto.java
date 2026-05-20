@@ -21,4 +21,10 @@ public record AluguelMailDto(
             Boolean protecaoRoubo
     ) {
     }
+
+    public record MotoristaMailDto(
+            String nome,
+            String email
+    ) {
+    }
 }

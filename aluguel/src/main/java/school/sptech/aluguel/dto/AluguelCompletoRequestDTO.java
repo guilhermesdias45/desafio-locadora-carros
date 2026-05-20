@@ -13,8 +13,8 @@ public record AluguelCompletoRequestDTO(
         LocalDate dataDevolucao,
         BigDecimal valorTotal,
         ApoliceSeguro apolice,
-        MotoristaRequestDTO motoristaId,
-        CarroRequestDTO carroId
+        MotoristaRequestDTO motorista,
+        CarroRequestDTO carro
 ) {
     public record MotoristaRequestDTO(
             Long id,
